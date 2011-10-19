@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{10E162FF-2D28-42CB-B991-95B6467C92CD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>polyglottos</RootNamespace>
+    <AssemblyName>polyglottos</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>target\</OutputPath>
+    <IntermediateOutputPath>target\obj\</IntermediateOutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>../tools/keys/polyglottos.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>target\</OutputPath>
+    <IntermediateOutputPath>target\obj\</IntermediateOutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\BodyFactoryRocks.cs" />
+    <Compile Include="src\core\GContext.cs" />
+    <Compile Include="src\core\GProjectBase.cs" />
+    <Compile Include="src\generators\structure\csharp\GConstructorGenerator.cs" />
+    <Compile Include="src\generators\structure\GMemberGeneratorBase.cs" />
+    <Compile Include="src\generators\structure\java\GConstructorGenerator.cs" />
+    <Compile Include="src\interfaces\IGSnippetContainer.cs" />
+    <Compile Include="src\core\GTypeClr.cs" />
+    <Compile Include="src\FluentRocks.cs" />
+    <Compile Include="src\generators\base\CodeGeneratorBase.cs" />
+    <Compile Include="src\interfaces\IGContext.cs" />
+    <Compile Include="src\interfaces\IGGenerator.cs" />
+    <Compile Include="src\interfaces\IGSnippetGenerator.cs" />
+    <Compile Include="src\interfaces\IGSnippetStructure.cs" />
+    <Compile Include="src\csharp\BodyFactoryRocks.cs" />
+    <Compile Include="src\generators\base\GContainerGeneratorBase.cs" />
+    <Compile Include="src\generators\base\GExpressionGeneratorBase.cs" />
+    <Compile Include="src\csharp\CSharpCodeGenerator.cs" />
+    <Compile Include="src\csharp\GProjectCSharp.cs" />
+    <Compile Include="src\interfaces\IGSnippetBody.cs" />
+    <Compile Include="src\interfaces\IGProject.cs" />
+    <Compile Include="src\csharp\StructureFactoryRocks.cs" />
+    <Compile Include="src\generators\expressions\GCallConstructorExpressionGenerator.cs" />
+    <Compile Include="src\generators\expressions\GCallMethodExpressionGenerator.cs" />
+    <Compile Include="src\generators\expressions\GCastExpressionGenerator.cs" />
+    <Compile Include="src\generators\expressions\GStaticClassExpressionGenerator.cs" />
+    <Compile Include="src\generators\expressions\csharp\GLiteralExpressionGenerator.cs" />
+    <Compile Include="src\generators\expressions\csharp\GTypeofExpressionGenerator.cs" />
+    <Compile Include="src\generators\expressions\java\GLiteralExpressionGenerator.cs" />
+    <Compile Include="src\generators\expressions\java\GTypeofExpressionGenerator.cs" />
+    <Compile Include="src\generators\statements\GAssignStatementGenerator.cs" />
+    <Compile Include="src\generators\statements\GDeclareStatementGenerator.cs" />
+    <Compile Include="src\generators\statements\GReturnStatementGenerator.cs" />
+    <Compile Include="src\generators\statements\GThrowStatementGenerator.cs" />
+    <Compile Include="src\generators\statements\csharp\GUsingStatementGenerator.cs" />
+    <Compile Include="src\generators\structure\csharp\GNamespaceGenerator.cs" />
+    <Compile Include="src\generators\structure\csharp\GPropertyGenerator.cs" />
+    <Compile Include="src\generators\structure\GFieldGenerator.cs" />
+    <Compile Include="src\generators\structure\GTextSnippetGenerator.cs" />
+    <Compile Include="src\generators\structure\java\GClassGenerator.cs" />
+    <Compile Include="src\generators\structure\java\GMethodGenerator.cs" />
+    <Compile Include="src\generators\structure\java\GNamespaceGenerator.cs" />
+    <Compile Include="src\java\BodyFactoryRocks.cs" />
+    <Compile Include="src\core\GTypeJvm.cs" />
+    <Compile Include="src\java\GProjectJava.cs" />
+    <Compile Include="src\QueryRocks.cs" />
+    <Compile Include="src\snippets\base\GChainSnippetBase.cs" />
+    <Compile Include="src\snippets\expressions\GCallConstructorExpression.cs" />
+    <Compile Include="src\snippets\structure\GCallParams.cs" />
+    <Compile Include="src\snippets\base\GContainerSnippetBase.cs" />
+    <Compile Include="src\snippets\structure\GConstructor.cs" />
+    <Compile Include="src\snippets\structure\GMemberSnippetBase.cs" />
+    <Compile Include="src\snippets\expressions\GBaseContainerExpression.cs" />
+    <Compile Include="src\snippets\expressions\GCallIndexerExpression.cs" />
+    <Compile Include="src\snippets\expressions\GCallMethodExpression.cs" />
+    <Compile Include="src\snippets\expressions\GCastExpression.cs" />
+    <Compile Include="src\snippets\expressions\GStaticClassExpression.cs" />
+    <Compile Include="src\snippets\expressions\GLiteralExpression.cs" />
+    <Compile Include="src\snippets\expressions\GTypeofExpression.cs" />
+    <Compile Include="src\snippets\statements\GAssignStatement.cs" />
+    <Compile Include="src\snippets\statements\GDeclareStatement.cs" />
+    <Compile Include="src\snippets\statements\GReturnStatement.cs" />
+    <Compile Include="src\snippets\statements\GUsingStatement.cs" />
+    <Compile Include="src\snippets\structure\GBodyRegion.cs" />
+    <Compile Include="src\snippets\structure\GClass.cs" />
+    <Compile Include="src\snippets\structure\GClassRegion.cs" />
+    <Compile Include="src\snippets\structure\GComment.cs" />
+    <Compile Include="src\snippets\structure\GField.cs" />
+    <Compile Include="src\snippets\structure\GFile.cs" />
+    <Compile Include="src\snippets\structure\GFileRegion.cs" />
+    <Compile Include="src\snippets\structure\GMethod.cs" />
+    <Compile Include="src\snippets\structure\GNamespace.cs" />
+    <Compile Include="src\snippets\structure\GNamespaceRegion.cs" />
+    <Compile Include="src\snippets\structure\GParameter.cs" />
+    <Compile Include="src\snippets\structure\GProperty.cs" />
+    <Compile Include="src\snippets\base\GSnippetBase.cs" />
+    <Compile Include="src\snippets\statements\GTextStatement.cs" />
+    <Compile Include="src\interfaces\IGSnippetType.cs" />
+    <Compile Include="src\snippets\structure\GTextSnippet.cs" />
+    <Compile Include="src\snippets\structure\GTextType.cs" />
+    <Compile Include="src\snippets\expressions\GTextExpression.cs" />
+    <Compile Include="src\snippets\statements\GThrowStatement.cs" />
+    <Compile Include="src\snippets\structure\GXmlDocSnippet.cs" />
+    <Compile Include="src\generators\structure\csharp\GClassGenerator.cs" />
+    <Compile Include="src\generators\structure\GCommentGenerator.cs" />
+    <Compile Include="src\generators\structure\GFileGenerator.cs" />
+    <Compile Include="src\generators\expressions\GCallIndexerExpressionGenerator.cs" />
+    <Compile Include="src\generators\structure\csharp\GMethodGenerator.cs" />
+    <Compile Include="src\generators\structure\GParameterGenerator.cs" />
+    <Compile Include="src\generators\structure\csharp\GRegionGenerator.cs" />
+    <Compile Include="src\generators\statements\GTextStatementGenerator.cs" />
+    <Compile Include="src\generators\type\GTextTypeGenerator.cs" />
+    <Compile Include="src\generators\expressions\GTextExpressionGenerator.cs" />
+    <Compile Include="src\java\JavaCodeGenerator.cs" />
+    <Compile Include="src\generators\structure\java\GFileGenerator.cs" />
+    <Compile Include="src\generators\base\GGeneratorBase.cs" />
+    <Compile Include="src\generators\structure\GXmlDocSnippetGenerator.cs" />
+    <Compile Include="src\StructureFactoryRocks.cs" />
+    <Compile Include="src\utils\GCodeWriter.cs" />
+    <Compile Include="src\interfaces\IGContainers.cs" />
+    <Compile Include="src\interfaces\IGCodeGenerator.cs" />
+    <Compile Include="src\interfaces\IGCodeWriter.cs" />
+    <Compile Include="src\interfaces\IGSnippet.cs" />
+    <Compile Include="src\Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>if not exist $(SolutionDir)\tools\keys\jni4net.snk "$(FrameworkSDKDir)\bin\sn.exe" -k $(SolutionDir)\tools\keys\polyglottos.snk
+</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

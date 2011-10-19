@@ -1,0 +1,19 @@
+<Configuration>
+  <NamespaceFolders>
+    <SkipFolder>10E162FF-2D28-42CB-B991-95B6467C92CD/d:src/d:core</SkipFolder>
+    <SkipFolder>10E162FF-2D28-42CB-B991-95B6467C92CD/d:src/d:generators/d:base</SkipFolder>
+    <SkipFolder>10E162FF-2D28-42CB-B991-95B6467C92CD/d:src/d:generators/d:expressions</SkipFolder>
+    <SkipFolder>10E162FF-2D28-42CB-B991-95B6467C92CD/d:src/d:generators/d:statements</SkipFolder>
+    <SkipFolder>10E162FF-2D28-42CB-B991-95B6467C92CD/d:src/d:generators/d:structure</SkipFolder>
+    <SkipFolder>10E162FF-2D28-42CB-B991-95B6467C92CD/d:src/d:generators/d:type</SkipFolder>
+    <SkipFolder>10E162FF-2D28-42CB-B991-95B6467C92CD/d:src/d:generators</SkipFolder>
+    <SkipFolder>10E162FF-2D28-42CB-B991-95B6467C92CD/d:src/d:interfaces</SkipFolder>
+    <SkipFolder>10E162FF-2D28-42CB-B991-95B6467C92CD/d:src/d:snippets/d:base</SkipFolder>
+    <SkipFolder>10E162FF-2D28-42CB-B991-95B6467C92CD/d:src/d:snippets/d:expressions</SkipFolder>
+    <SkipFolder>10E162FF-2D28-42CB-B991-95B6467C92CD/d:src/d:snippets/d:statements</SkipFolder>
+    <SkipFolder>10E162FF-2D28-42CB-B991-95B6467C92CD/d:src/d:snippets/d:structure</SkipFolder>
+    <SkipFolder>10E162FF-2D28-42CB-B991-95B6467C92CD/d:src/d:snippets</SkipFolder>
+    <SkipFolder>10E162FF-2D28-42CB-B991-95B6467C92CD/d:src/d:utils</SkipFolder>
+    <SkipFolder>10E162FF-2D28-42CB-B991-95B6467C92CD/d:src</SkipFolder>
+  </NamespaceFolders>
+</Configuration>
