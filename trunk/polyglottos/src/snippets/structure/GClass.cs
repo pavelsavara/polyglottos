@@ -63,6 +63,7 @@ namespace polyglottos.snippets
                 {
                     IsPrivate = false;
                     IsProtected = false;
+                    IsInternal = false;
                 }
                 isPublic = value;
             }
@@ -77,6 +78,7 @@ namespace polyglottos.snippets
                 {
                     IsPublic = false;
                     IsProtected = false;
+                    IsInternal = false;
                 }
                 isPrivate = value;
             }
@@ -111,5 +113,10 @@ namespace polyglottos.snippets
         }
 
         #endregion
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

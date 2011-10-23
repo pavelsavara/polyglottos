@@ -45,6 +45,7 @@ namespace polyglottos.snippets
             {
                 if (value)
                 {
+                    IsInternal = false;
                     IsPrivate = false;
                     IsProtected = false;
                 }
@@ -59,6 +60,7 @@ namespace polyglottos.snippets
             {
                 if (value)
                 {
+                    IsInternal = false;
                     IsPublic = false;
                     IsProtected = false;
                 }
