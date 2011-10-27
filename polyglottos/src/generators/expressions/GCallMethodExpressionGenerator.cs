@@ -28,6 +28,20 @@ namespace polyglottos.generators
         {
             var expression = (IGCallMethodExpression) snippet;
             CodeWriter.Write(expression.Name);
+            if (expression.GenericArguments.Count>0)
+            {
+                CodeWriter.Write("<");
+                for (int i = 0; i < expression.GenericArguments.Count; i++)
+                {
+                    IGType genericParameter = expression.GenericArguments[i];
+                    if (i > 0)
+                    {
+                        CodeWriter.Write(", ");
+                    }
+                    Generator.GenerateSnippet(genericParameter, TypeArgs.All);
+                }
+                CodeWriter.Write(">");
+            }
             CodeWriter.Write("(");
             GenerateCallParams(expression);
             CodeWriter.Write(")");
