@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endregion
 
+using System.Collections.Generic;
+
 namespace polyglottos
 {
     #region statements
@@ -84,6 +86,7 @@ namespace polyglottos
 
     public interface IGCallMethodExpression : IGCallMethod, IGExpression
     {
+        IList<IGType> GenericArguments { get; }
     }
 
     public interface IGTypeofExpression : IGExpression

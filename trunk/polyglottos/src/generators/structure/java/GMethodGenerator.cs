@@ -32,18 +32,15 @@ namespace polyglottos.generators.java
             if (method.GenericArguments.Count > 0)
             {
                 CodeWriter.Write("<");
-            }
-            for (int i = 0; i < method.GenericArguments.Count; i++)
-            {
-                IGType genericParameter = method.GenericArguments[i];
-                if (i > 0)
+                for (int i = 0; i < method.GenericArguments.Count; i++)
                 {
-                    CodeWriter.Write(", ");
+                    IGType genericParameter = method.GenericArguments[i];
+                    if (i > 0)
+                    {
+                        CodeWriter.Write(", ");
+                    }
+                    Generator.GenerateSnippet(genericParameter, TypeArgs.All);
                 }
-                Generator.GenerateSnippet(genericParameter, TypeArgs.All);
-            }
-            if (method.GenericArguments.Count > 0)
-            {
                 CodeWriter.Write("> ");
             }
         }

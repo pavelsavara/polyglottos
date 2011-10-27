@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endregion
 
+using System.Collections.Generic;
+
 namespace polyglottos.snippets
 {
     public class GCallMethodExpression : GContainerSnippetBase, IGCallMethodExpression
@@ -27,11 +29,13 @@ namespace polyglottos.snippets
         public GCallMethodExpression()
         {
             Parameters = new GCallParams();
+            GenericArguments = new List<IGType>();
         }
 
         #region IGCallMethodExpression Members
 
         public IGCallParameters Parameters { get; private set; }
+        public IList<IGType> GenericArguments { get; private set; }
 
         public override IGProject Project
         {
