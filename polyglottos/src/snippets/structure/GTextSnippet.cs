@@ -24,5 +24,6 @@ namespace polyglottos.snippets
 {
     public class GTextSnippet : GSnippetBase, IGTextSnippet
     {
+        public bool Line { get; set; }
     }
 }

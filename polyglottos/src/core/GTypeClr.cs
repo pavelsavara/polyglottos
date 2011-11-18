@@ -36,6 +36,7 @@ namespace polyglottos
         public static readonly IGType Decimal = new GTextType("decimal", true);
         public static readonly IGType Double = new GTextType("double", true);
         public static readonly IGType Object = new GTextType("object", true);
+        public static readonly IGType Type = new GTextType("System.Type");
         public static readonly IGType IntPtr = new GTextType("System.IntPtr");
         public static readonly IGType IntPtrArray = new GTextType("System.IntPtr[]");
         public static readonly IGType NotImplementedException = new GTextType("System.NotImplementedException");

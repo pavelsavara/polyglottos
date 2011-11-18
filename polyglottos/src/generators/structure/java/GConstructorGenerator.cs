@@ -24,5 +24,29 @@ namespace polyglottos.generators.java
 {
     public class GConstructorGenerator : GMethodGenerator
     {
+        protected override void WriteName(snippets.GMethod method)
+        {
+            if (method.Name != null)
+            {
+                base.WriteName(method);
+            }
+            else
+            {
+                var parent = method.ParentSnippet;
+                while (!(parent is IGClass))
+                {
+                    parent = parent.ParentSnippet;
+                }
+                var clazz = (IGClass)parent;
+                if (clazz.DeclaringType != null)
+                {
+                    Generator.GenerateSnippet(clazz.DeclaringType, TypeArgs.Name);
+                }
+                else
+                {
+                    CodeWriter.Write(clazz.Name);
+                }
+            }
+        }
     }
 }

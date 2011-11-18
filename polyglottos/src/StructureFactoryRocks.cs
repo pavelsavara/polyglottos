@@ -100,6 +100,14 @@ namespace polyglottos
             return snippet;
         }
 
+        public static IGConstructor AddConstructor(this IGClass self, Action<IGConstructor> with = null)
+        {
+            var snippet = self.Project.CreateSnippet<IGConstructor>();
+            self._AddSnippet(snippet);
+            if (with != null) with(snippet);
+            return snippet;
+        }
+
         #endregion
 
         #region member body
@@ -148,11 +156,20 @@ namespace polyglottos
             return snippet;
         }
 
-        public static IGTextSnippet AddTextSnippet(this IGSnippetContainer self, string text,
-                                                   Action<IGTextSnippet> with = null)
+        public static IGTextSnippet AddTextSnippet(this IGSnippetContainer self, string text, Action<IGTextSnippet> with = null)
         {
             var snippet = self.Project.CreateSnippet<IGTextSnippet>();
             snippet.Name = text;
+            self._AddSnippet(snippet);
+            if (with != null) with(snippet);
+            return snippet;
+        }
+
+        public static IGTextSnippet AddTextLine(this IGSnippetContainer self, string text, Action<IGTextSnippet> with = null)
+        {
+            var snippet = self.Project.CreateSnippet<IGTextSnippet>();
+            snippet.Name = text;
+            snippet.Line = true;
             self._AddSnippet(snippet);
             if (with != null) with(snippet);
             return snippet;

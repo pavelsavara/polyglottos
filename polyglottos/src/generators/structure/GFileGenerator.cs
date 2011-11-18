@@ -31,6 +31,11 @@ namespace polyglottos.generators
 
         public virtual IGCodeWriter CreateWriter(IGFile snippet)
         {
+            string dir = Path.GetDirectoryName(snippet.Name);
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
             return new GCodeWriter(new StreamWriter(snippet.Name));
         }
 
