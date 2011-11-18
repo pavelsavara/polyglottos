@@ -110,7 +110,7 @@ namespace polyglottos.test
                                                     });
 
                                             clazz.AddTextSnippet(
-                                                "internal event Action<int> NumberGenertor = (i) => Console.WriteLine(i);");
+                                                "internal event Action<int> NumberGenertor = (i) => Console.WriteLine(i);\n");
                                         });
                             })));
 

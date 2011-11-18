@@ -39,6 +39,10 @@ namespace polyglottos
         IGExpressionStartContainer Disposable { get; set; }
     }
 
+    public interface IGBlockStatement : IGStatement, IGStatementContainer
+    {
+    }
+
     public interface IGDeclareStatement : IGStatement
     {
         IGType Type { get; set; }

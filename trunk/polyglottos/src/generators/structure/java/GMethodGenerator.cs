@@ -68,8 +68,7 @@ namespace polyglottos.generators.java
             }
             if (!method.IsOperator)
             {
-                CodeWriter.Write(method.Name);
-                WriteGenericArguments(method);
+                WriteName(method);
             }
             CodeWriter.Write("(");
             for (int i = 0; i < method.Parameters.Count; i++)
@@ -99,6 +98,12 @@ namespace polyglottos.generators.java
                     CodeWriter.WriteLine(");");
                 }
             }
+        }
+
+        protected virtual void WriteName(GMethod method)
+        {
+            CodeWriter.Write(method.Name);
+            WriteGenericArguments(method);
         }
 
         protected override void GenerateBody(IGSnippetContainer snippet)

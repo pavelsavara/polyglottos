@@ -179,6 +179,7 @@ namespace polyglottos
 
     public interface IGTextSnippet : IGSnippet
     {
+        bool Line { get; set; }
     }
 
     #endregion

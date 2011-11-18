@@ -47,6 +47,7 @@ namespace polyglottos.csharp
 
             //statements
             RegisterSnippet<IGUsingStatement, GUsingStatement>();
+            RegisterSnippet<IGBlockStatement, GBlockStatement>();
         }
     }
 }

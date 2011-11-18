@@ -94,6 +94,15 @@ namespace polyglottos
             return snippet;
         }
 
+        public static IGBlockStatement BlockStatement(this IGStatementContainer self,
+                                             Action<IGBlockStatement> with = null)
+        {
+            var snippet = self.Project.CreateSnippet<IGBlockStatement>();
+            self._AddSnippet(snippet);
+            if (with != null) with(snippet);
+            return snippet;
+        }
+
         #endregion
 
         #region expressions

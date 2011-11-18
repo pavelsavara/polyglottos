@@ -72,7 +72,8 @@ namespace polyglottos.generators
                                                   typeof (IGWriterGenerator));
             }
 
-            using (IGCodeWriter cw = ((IGWriterGenerator) writerGenerator).CreateWriter(snippet))
+            writerGenerator.Init(this, null, Context);
+            using (IGCodeWriter cw = ((IGWriterGenerator)writerGenerator).CreateWriter(snippet))
             {
                 Generate(snippet, cw);
             }
@@ -128,6 +129,7 @@ namespace polyglottos.generators
             RegisterStrategy<GThrowStatement, GThrowStatementGenerator>();
             RegisterStrategy<GAssignStatement, GAssignStatementGenerator>();
             RegisterStrategy<GDeclareStatement, GDeclareStatementGenerator>();
+            RegisterStrategy<GBlockStatement, GBlockStatementGenerator>();
 
             //expressions
             RegisterStrategy<GCallMethodExpression, GCallMethodExpressionGenerator>();

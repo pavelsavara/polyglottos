@@ -26,8 +26,15 @@ namespace polyglottos.generators
     {
         public override void Generate(IGSnippet snippet)
         {
-            IGSnippet namedSnippet = snippet;
-            CodeWriter.WriteLine(namedSnippet.Name);
+            var namedSnippet = (IGTextSnippet)snippet;
+            if (namedSnippet.Line)
+            {
+                CodeWriter.WriteLine(namedSnippet.Name);
+            }
+            else
+            {
+                CodeWriter.Write(namedSnippet.Name);
+            }
         }
     }
 }
