@@ -59,20 +59,20 @@ namespace polyglottos.generators.java
             {
                 CodeWriter.Write(clazz.Name);
             }
-            /*if (GenericArguments.Count > 0)
+            if (clazz.GenericArguments.Count > 0)
             {
                 CodeWriter.Write("<");
-                for (int i = 0; i < GenericArguments.Count; i++)
+                for (int i = 0; i < clazz.GenericArguments.Count; i++)
                 {
-                    var argument = GenericArguments[i];
+                    var argument = clazz.GenericArguments[i];
                     if (i > 0)
                     {
                         CodeWriter.Write(", ");
                     }
-                    argument.GenerateArgs(generator, CodeWriter, context, TypeSnipetArgs.NameNamespaceArguments);
+                    Generator.GenerateSnippet(argument, TypeArgs.All);
                 }
                 CodeWriter.Write(">");
-            }*/
+            }
             if (clazz.Extends != null)
             {
                 CodeWriter.Write(" extends ");
@@ -93,11 +93,6 @@ namespace polyglottos.generators.java
             IfcExtension(clazz.Name);
             
             CodeWriter.WriteLine("{");
-            /*
-            foreach (var argument in GenericArguments)
-            {
-                argument.GenerateArgs(generator, CodeWriter, context, TypeSnipetArgs.Constraints);
-            }*/
             CodeWriter.Indent++;
 
             CodeExtension(clazz.Name);

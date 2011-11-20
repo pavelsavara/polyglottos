@@ -56,6 +56,9 @@ namespace polyglottos.generators.java
                 Generator.GenerateSnippet(xmlDocSnippet);
             }
             GMemberGeneratorBase.GenerateModifiers(method, CodeWriter);
+
+            WriteGenericArguments(method);
+
             if (method.ReturnType != null)
             {
                 Generator.GenerateSnippet(method.ReturnType, TypeArgs.NameNamespaceArguments);
@@ -103,7 +106,6 @@ namespace polyglottos.generators.java
         protected virtual void WriteName(GMethod method)
         {
             CodeWriter.Write(method.Name);
-            WriteGenericArguments(method);
         }
 
         protected override void GenerateBody(IGSnippetContainer snippet)
