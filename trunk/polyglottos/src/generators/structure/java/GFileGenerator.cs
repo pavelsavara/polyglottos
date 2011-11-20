@@ -39,9 +39,10 @@ namespace polyglottos.generators.java
         public static bool GetOldExtension(IDictionary<string, object> context, string starttag, ref string extension,
                                            string endtag)
         {
-            var oldFileContent = context["OldFileContent"] as string;
-            if (oldFileContent != null)
+            object oldfc;
+            if (context.TryGetValue("OldFileContent", out oldfc))
             {
+                var oldFileContent = oldfc as string;
                 int start;
                 int end;
                 if ((start = oldFileContent.IndexOf(starttag)) != -1
