@@ -77,20 +77,21 @@ namespace polyglottos.generators.java
             {
                 CodeWriter.Write(" extends ");
                 Generator.GenerateSnippet(clazz.Extends, TypeArgs.NameNamespaceArguments);
-                foreach (IGType implement in clazz.Implements)
-                {
-                    CodeWriter.Write(" implements ");
-                    Generator.GenerateSnippet(implement, TypeArgs.NameNamespaceArguments);
-                }
             }
-            else if (clazz.Implements.Count > 0)
+            if (clazz.Implements.Count > 0)
             {
                 for (int i = 0; i < clazz.Implements.Count; i++)
                 {
-                    CodeWriter.Write(i == 0 ? " implements " : ", ");
+                    CodeWriter.Write(i == 0
+                                         ? (clazz.IsInterface
+                                                ? " extends "
+                                                : " implements ")
+                                         : ", ");
                     Generator.GenerateSnippet(clazz.Implements[i], TypeArgs.NameNamespaceArguments);
                 }
             }
+            IfcExtension(clazz.Name);
+            
             CodeWriter.WriteLine("{");
             /*
             foreach (var argument in GenericArguments)
@@ -98,6 +99,36 @@ namespace polyglottos.generators.java
                 argument.GenerateArgs(generator, CodeWriter, context, TypeSnipetArgs.Constraints);
             }*/
             CodeWriter.Indent++;
+
+            CodeExtension(clazz.Name);
+        }
+
+        //TODO refactor out
+        private void IfcExtension(string name)
+        {
+            string ifcStart = "// <j4ni-" + name + ">";
+            string extension = "// put user interfaces here";
+            string ifcEnd = "// </j4ni-" + name + ">";
+
+            bool old = GFileGenerator.GetOldExtension(Context, ifcStart, ref extension, ifcEnd);
+
+            CodeWriter.WriteLine();
+            CodeWriter.WriteLine(ifcStart);
+            CodeWriter.WriteLine(extension, !old);
+            CodeWriter.WriteLine(ifcEnd);
+        }
+
+        private void CodeExtension(string name)
+        {
+            string bodyStart = "// <j4nb-" + name + "> ";
+            string extension = "// put user members here";
+            string bodyEnd = "// </j4nb-" + name + ">";
+
+            bool old = GFileGenerator.GetOldExtension(Context, bodyStart, ref extension, bodyEnd);
+
+            CodeWriter.WriteLine(bodyStart);
+            CodeWriter.WriteLine(extension, !old);
+            CodeWriter.WriteLine(bodyEnd);
         }
 
         protected override void GenerateEpilog(IGSnippetContainer snippet)

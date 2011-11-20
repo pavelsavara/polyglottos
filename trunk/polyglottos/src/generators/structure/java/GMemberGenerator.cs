@@ -20,9 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endregion
 
-namespace polyglottos.generators
+namespace polyglottos.generators.java
 {
-    public class GMemberGeneratorBase
+    public class GMemberGenerator
     {
         public static void GenerateVisibility(IGVisibility modifiers, IGCodeWriter writer)
         {
@@ -65,31 +65,15 @@ namespace polyglottos.generators
 
                 if (modifiers.IsSealed)
                 {
-                    writer.Write("sealed ");
+                    writer.Write("final ");
                 }
                 if (modifiers.IsVirtual)
                 {
                     writer.Write("virtual ");
                 }
-                if (modifiers.IsOverride)
-                {
-                    writer.Write("override ");
-                }
                 if (modifiers.IsNative)
                 {
                     writer.Write("native ");
-                }
-                if (modifiers.IsImplicit)
-                {
-                    writer.Write("implicit ");
-                }
-                if (modifiers.IsExplicit)
-                {
-                    writer.Write("explicit ");
-                }
-                if (modifiers.IsOperator)
-                {
-                    writer.Write("operator ");
                 }
             }
         }
