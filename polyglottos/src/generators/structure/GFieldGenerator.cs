@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endregion
 
+using polyglottos.generators.csharp;
+
 namespace polyglottos.generators
 {
     public class GFieldGenerator : GExpressionGeneratorBase
