@@ -61,13 +61,8 @@ namespace polyglottos.generators.java
 
             if (method.ReturnType != null)
             {
-                Generator.GenerateSnippet(method.ReturnType, TypeArgs.NameNamespaceArguments);
+                Generator.GenerateSnippet(method.ReturnType, method.IsStatic ? TypeArgs.NameNamespace : TypeArgs.NameNamespaceArguments);
                 CodeWriter.Write(" ");
-            }
-            if (method.ExplicitInterface != null)
-            {
-                Generator.GenerateSnippet(method.ExplicitInterface, TypeArgs.NameNamespaceArguments);
-                CodeWriter.Write('.');
             }
             if (!method.IsOperator)
             {
@@ -81,7 +76,7 @@ namespace polyglottos.generators.java
                 {
                     CodeWriter.Write(", ");
                 }
-                Generator.GenerateSnippet(parameter.Type, TypeArgs.NameNamespaceArguments);
+                Generator.GenerateSnippet(parameter.Type, method.IsStatic ?  TypeArgs.NameNamespace : TypeArgs.NameNamespaceArguments);
                 CodeWriter.Write(" ");
                 CodeWriter.Write(parameter.Name);
             }
