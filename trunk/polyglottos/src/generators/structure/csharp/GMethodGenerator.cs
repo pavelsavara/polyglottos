@@ -78,9 +78,7 @@ namespace polyglottos.generators.csharp
                 {
                     CodeWriter.Write(", ");
                 }
-                Generator.GenerateSnippet(parameter.Type, TypeArgs.NameNamespaceArguments);
-                CodeWriter.Write(" ");
-                CodeWriter.Write(parameter.Name);
+                Generator.GenerateSnippet(parameter);
             }
 
             if (method.HideBody)

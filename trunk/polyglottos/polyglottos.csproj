@@ -71,6 +71,7 @@
     <Compile Include="src\generators\statements\GBlockStatementGenerator.cs" />
     <Compile Include="src\generators\structure\csharp\GConstructorGenerator.cs" />
     <Compile Include="src\generators\structure\csharp\GMemberGeneratorBase.cs" />
+    <Compile Include="src\generators\structure\csharp\GParameterGenerator.cs" />
     <Compile Include="src\generators\structure\java\GMemberGeneratorBase.cs" />
     <Compile Include="src\generators\structure\java\GConstructorGenerator.cs" />
     <Compile Include="src\interfaces\IGSnippetContainer.cs" />
@@ -156,7 +157,7 @@
     <Compile Include="src\generators\structure\GFileGenerator.cs" />
     <Compile Include="src\generators\expressions\GCallIndexerExpressionGenerator.cs" />
     <Compile Include="src\generators\structure\csharp\GMethodGenerator.cs" />
-    <Compile Include="src\generators\structure\GParameterGenerator.cs" />
+    <Compile Include="src\generators\structure\java\GParameterGenerator.cs" />
     <Compile Include="src\generators\structure\csharp\GRegionGenerator.cs" />
     <Compile Include="src\generators\statements\GTextStatementGenerator.cs" />
     <Compile Include="src\generators\type\GTextTypeGenerator.cs" />

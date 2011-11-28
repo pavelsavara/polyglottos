@@ -119,7 +119,6 @@ namespace polyglottos.generators
             RegisterStrategy<GField, GFieldGenerator>();
 
             //member decoration
-            RegisterStrategy<GParameter, GParameterGenerator>();
             RegisterStrategy<GComment, GCommentGenerator>();
             RegisterStrategy<GXmlDocSnippet, GXmlDocSnippetGenerator>();
 

@@ -20,18 +20,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endregion
 
-namespace polyglottos.generators
+namespace polyglottos.generators.java
 {
     public class GParameterGenerator : GGeneratorBase
     {
         public override void Generate(IGSnippet snippet)
         {
             var parameter = (IGParameter) snippet;
-            if (parameter.IsThis)
-            {
-                CodeWriter.Write("this ");
-            }
-            Generator.GenerateSnippet(parameter.Type, TypeArgs.NameNamespaceArguments);
+            var method = parameter.ParentSnippet as IGMember;
+            TypeArgs typeArgs = method != null && method.IsStatic
+                                    ? TypeArgs.NameNamespace
+                                    : TypeArgs.NameNamespaceArguments;
+            Generator.GenerateSnippet(parameter.Type, typeArgs);
             CodeWriter.Write(' ');
             CodeWriter.Write(parameter.Name);
         }
