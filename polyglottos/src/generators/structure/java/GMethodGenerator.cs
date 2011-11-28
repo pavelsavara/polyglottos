@@ -76,9 +76,7 @@ namespace polyglottos.generators.java
                 {
                     CodeWriter.Write(", ");
                 }
-                Generator.GenerateSnippet(parameter.Type, method.IsStatic ?  TypeArgs.NameNamespace : TypeArgs.NameNamespaceArguments);
-                CodeWriter.Write(" ");
-                CodeWriter.Write(parameter.Name);
+                Generator.GenerateSnippet(parameter);
             }
 
             if (method.HideBody)

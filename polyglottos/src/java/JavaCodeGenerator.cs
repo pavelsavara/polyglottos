@@ -46,6 +46,7 @@ namespace polyglottos.java
             //members
             RegisterStrategy<GMethod, GMethodGenerator>();
             RegisterStrategy<GConstructor, GConstructorGenerator>();
+            RegisterStrategy<GParameter, GParameterGenerator>();
 
             //expressions
             RegisterStrategy<GLiteralExpression, GLiteralExpressionGenerator>();
