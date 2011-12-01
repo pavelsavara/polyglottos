@@ -45,6 +45,11 @@ namespace polyglottos
         IList<IGXmlDocSnippet> XmlDocSnippets { get; }
     }
 
+    public interface IGAttributeContainer : IGSnippetContainer
+    {
+        IList<IGAttributeSnippet> AttributeSnippets { get; }
+    }
+
     public interface IGParameterContainer : IGSnippetContainer
     {
         IList<IGParameter> Parameters { get; }

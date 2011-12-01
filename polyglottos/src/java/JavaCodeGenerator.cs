@@ -42,6 +42,7 @@ namespace polyglottos.java
             RegisterStrategy<GFile, GFileGenerator>();
             RegisterStrategy<GNamespace, GNamespaceGenerator>();
             RegisterStrategy<GClass, GClassGenerator>();
+            RegisterStrategy<GAttributeSnippet, GAttributeGenerator>();
 
             //members
             RegisterStrategy<GMethod, GMethodGenerator>();

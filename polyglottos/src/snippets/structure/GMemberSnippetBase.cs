@@ -34,6 +34,7 @@ namespace polyglottos.snippets
         protected GMemberSnippetBase()
         {
             XmlDocSnippets = new List<IGXmlDocSnippet>();
+            AttributeSnippets=new List<IGAttributeSnippet>();
         }
 
         #region IGMember Members
@@ -112,6 +113,7 @@ namespace polyglottos.snippets
 
         public IList<IGXmlDocSnippet> XmlDocSnippets { get; private set; }
 
+        public IList<IGAttributeSnippet> AttributeSnippets { get; private set; }
         #endregion
     }
 }

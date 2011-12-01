@@ -30,6 +30,15 @@ namespace polyglottos.generators.csharp
 
             VerticalSpacingBegin(clazz);
 
+            foreach (var xmlDocSnippet in clazz.XmlDocSnippets)
+            {
+                Generator.GenerateSnippet(xmlDocSnippet);
+            }
+            foreach (var attributeSnippet in clazz.AttributeSnippets)
+            {
+                Generator.GenerateSnippet(attributeSnippet);
+            }
+
             if (clazz.IsStatic)
             {
                 CodeWriter.Write("static ");
