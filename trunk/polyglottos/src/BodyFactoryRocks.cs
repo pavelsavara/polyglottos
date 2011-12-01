@@ -198,6 +198,16 @@ namespace polyglottos
             return snippet;
         }
 
+        public static IGCallFieldExpression CallField(this IGExpressionContainer self, string fieldName,
+                                                  Action<IGCallFieldExpression> result = null)
+        {
+            var snippet = self.Project.CreateSnippet<IGCallFieldExpression>();
+            snippet.Name = fieldName;
+            self._AddSnippet(snippet);
+            if (result != null) result(snippet);
+            return snippet;
+        }
+
         public static IGCallMethodExpression CallStatic(this IGExpressionStartContainer self, IGType type,
                                                         string methodName, Action<IGCallMethodExpression> result = null)
         {

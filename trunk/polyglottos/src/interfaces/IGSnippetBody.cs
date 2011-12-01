@@ -117,6 +117,10 @@ namespace polyglottos
     {
     }
 
+    public interface IGCallFieldExpression : IGExpression
+    {
+    }
+
     public interface IGTextExpression : IGExpression
     {
     }

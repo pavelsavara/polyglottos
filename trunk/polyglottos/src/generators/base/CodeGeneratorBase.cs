@@ -132,6 +132,7 @@ namespace polyglottos.generators
 
             //expressions
             RegisterStrategy<GCallMethodExpression, GCallMethodExpressionGenerator>();
+            RegisterStrategy<GCallFieldExpression, GCallFieldGenerator>();
             RegisterStrategy<GCallConstructorExpression, GCallConstructorExpressionGenerator>();
             RegisterStrategy<GTextExpression, GTextExpressionGenerator>();
             RegisterStrategy<GCallIndexerExpression, GCallIndexerExpressionGenerator>();

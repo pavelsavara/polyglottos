@@ -68,6 +68,7 @@
     <Compile Include="src\BodyFactoryRocks.cs" />
     <Compile Include="src\core\GContext.cs" />
     <Compile Include="src\core\GProjectBase.cs" />
+    <Compile Include="src\generators\expressions\GCallFieldGenerator.cs" />
     <Compile Include="src\generators\statements\GBlockStatementGenerator.cs" />
     <Compile Include="src\generators\structure\csharp\GAttributeGenerator.cs" />
     <Compile Include="src\generators\structure\csharp\GConstructorGenerator.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="src\QueryRocks.cs" />
     <Compile Include="src\snippets\base\GChainSnippetBase.cs" />
     <Compile Include="src\snippets\expressions\GCallConstructorExpression.cs" />
+    <Compile Include="src\snippets\expressions\GCallFieldExpression.cs" />
     <Compile Include="src\snippets\statements\GBlockStatement.cs" />
     <Compile Include="src\snippets\structure\GAttributeSnippet.cs" />
     <Compile Include="src\snippets\structure\GCallParams.cs" />
