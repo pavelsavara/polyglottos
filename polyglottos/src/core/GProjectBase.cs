@@ -153,6 +153,7 @@ namespace polyglottos
 
             //expressions
             RegisterSnippet<IGCallMethodExpression, GCallMethodExpression>();
+            RegisterSnippet<IGCallFieldExpression, GCallFieldExpression>();
             RegisterSnippet<IGCallConstructorExpression, GCallConstructorExpression>();
             RegisterSnippet<IGCallIndexerExpression, GCallIndexerExpression>();
             RegisterSnippet<IGStaticClassExpression, GStaticClassExpression>();
