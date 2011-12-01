@@ -134,6 +134,7 @@ namespace polyglottos
             RegisterSnippet<IGClass, GClass>();
             RegisterSnippet<IGComment, GComment>();
             RegisterSnippet<IGTextSnippet, GTextSnippet>();
+            RegisterSnippet<IGAttributeSnippet, GAttributeSnippet>();
 
             //members
             RegisterSnippet<IGMethod, GMethod>();

@@ -35,6 +35,7 @@ namespace polyglottos.snippets
         {
             Implements = new List<IGType>();
             XmlDocSnippets = new List<IGXmlDocSnippet>();
+            AttributeSnippets = new List<IGAttributeSnippet>();
             IsPublic = true;
             GenericArguments = new List<IGType>();
         }
@@ -53,6 +54,7 @@ namespace polyglottos.snippets
         public bool IsPartial { get; set; }
 
         public IList<IGXmlDocSnippet> XmlDocSnippets { get; private set; }
+        public IList<IGAttributeSnippet> AttributeSnippets { get; private set; }
 
         public bool IsPublic
         {

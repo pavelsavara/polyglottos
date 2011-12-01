@@ -51,9 +51,13 @@ namespace polyglottos.generators.java
 
             VerticalSpacingBegin(method, true);
 
-            foreach (IGXmlDocSnippet xmlDocSnippet in method.XmlDocSnippets)
+            foreach (var xmlDocSnippet in method.XmlDocSnippets)
             {
                 Generator.GenerateSnippet(xmlDocSnippet);
+            }
+            foreach (var attributeSnippet in method.AttributeSnippets)
+            {
+                Generator.GenerateSnippet(attributeSnippet);
             }
             GMemberGeneratorBase.GenerateModifiers(method, CodeWriter);
 

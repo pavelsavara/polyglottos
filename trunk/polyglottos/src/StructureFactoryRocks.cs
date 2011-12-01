@@ -112,7 +112,7 @@ namespace polyglottos
 
         #region member body
 
-        public static IGParameter AddParameter(this IGMethod self, IGType type, string name,
+        public static IGParameter AddParameter(this IGParameterContainer self, IGType type, string name,
                                                Action<IGParameter> with = null)
         {
             var snippet = self.Project.CreateSnippet<IGParameter>();
@@ -124,7 +124,7 @@ namespace polyglottos
         }
 
         //string type sugar
-        public static IGParameter AddParameter(this IGMethod self, string type, string name,
+        public static IGParameter AddParameter(this IGParameterContainer self, string type, string name,
                                                Action<IGParameter> with = null)
         {
             var snippet = self.Project.CreateSnippet<IGTextType>();
@@ -139,6 +139,17 @@ namespace polyglottos
             var snippet = self.Project.CreateSnippet<IGXmlDocSnippet>();
             snippet.Line = line;
             self.XmlDocSnippets.Add(snippet);
+            if (with != null) with(snippet);
+            return snippet;
+        }
+
+        public static IGAttributeSnippet AddAttribute(this IGAttributeContainer self, IGType type,
+                                                Action<IGAttributeSnippet> with = null)
+        {
+            var snippet = self.Project.CreateSnippet<IGAttributeSnippet>();
+            snippet.Type = type;
+            snippet.Name = type.Name;
+            self.AttributeSnippets.Add(snippet);
             if (with != null) with(snippet);
             return snippet;
         }

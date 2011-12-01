@@ -69,9 +69,11 @@
     <Compile Include="src\core\GContext.cs" />
     <Compile Include="src\core\GProjectBase.cs" />
     <Compile Include="src\generators\statements\GBlockStatementGenerator.cs" />
+    <Compile Include="src\generators\structure\csharp\GAttributeGenerator.cs" />
     <Compile Include="src\generators\structure\csharp\GConstructorGenerator.cs" />
     <Compile Include="src\generators\structure\csharp\GMemberGeneratorBase.cs" />
     <Compile Include="src\generators\structure\csharp\GParameterGenerator.cs" />
+    <Compile Include="src\generators\structure\java\GAttributeGenerator.cs" />
     <Compile Include="src\generators\structure\java\GMemberGeneratorBase.cs" />
     <Compile Include="src\generators\structure\java\GConstructorGenerator.cs" />
     <Compile Include="src\interfaces\IGSnippetContainer.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="src\snippets\base\GChainSnippetBase.cs" />
     <Compile Include="src\snippets\expressions\GCallConstructorExpression.cs" />
     <Compile Include="src\snippets\statements\GBlockStatement.cs" />
+    <Compile Include="src\snippets\structure\GAttributeSnippet.cs" />
     <Compile Include="src\snippets\structure\GCallParams.cs" />
     <Compile Include="src\snippets\base\GContainerSnippetBase.cs" />
     <Compile Include="src\snippets\structure\GConstructor.cs" />

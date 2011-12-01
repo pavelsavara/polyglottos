@@ -69,7 +69,7 @@ namespace polyglottos
     {
     }
 
-    public interface IGClass : IGMemberContainer, IGVisibility, IGCommentContainer, IGXmlDocContainer, IGClassContainer
+    public interface IGClass : IGMemberContainer, IGVisibility, IGCommentContainer, IGXmlDocContainer, IGClassContainer, IGAttributeContainer
     {
         IGType DeclaringType { get; set; }
         IGType Extends { get; set; }
@@ -87,7 +87,7 @@ namespace polyglottos
 
     #region members
 
-    public interface IGMember : IGVisibility, IGXmlDocContainer
+    public interface IGMember : IGVisibility, IGXmlDocContainer, IGAttributeContainer
     {
         bool IsPartial { get; set; }
 
@@ -159,6 +159,11 @@ namespace polyglottos
     #endregion
 
     #region member body
+
+    public interface IGAttributeSnippet : IGCallParametersContainer
+    {
+        IGType Type { get; set; }
+    }
 
     public interface IGXmlDocSnippet : IGSnippet
     {

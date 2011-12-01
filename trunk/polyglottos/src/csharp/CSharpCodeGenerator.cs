@@ -45,6 +45,7 @@ namespace polyglottos.csharp
             RegisterStrategy<GClass, GClassGenerator>();
             RegisterStrategy<GClassRegion, GRegionGenerator>();
             RegisterStrategy<GBodyRegion, GRegionGenerator>();
+            RegisterStrategy<GAttributeSnippet, GAttributeGenerator>();
 
             //members
             RegisterStrategy<GMethod, GMethodGenerator>();
