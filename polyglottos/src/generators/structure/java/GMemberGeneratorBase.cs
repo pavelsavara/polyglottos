@@ -63,6 +63,10 @@ namespace polyglottos.generators.java
                 {
                     writer.Write("native ");
                 }
+                if (modifiers.IsSynchronized)
+                {
+                    writer.Write("synchronized ");
+                }
             }
         }
     }

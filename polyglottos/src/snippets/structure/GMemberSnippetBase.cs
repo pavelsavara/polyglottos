@@ -110,6 +110,7 @@ namespace polyglottos.snippets
         public bool IsOperator { get; set; }
         public bool IsImplicit { get; set; }
         public bool IsExplicit { get; set; }
+        public bool IsSynchronized { get; set; }
 
         public IList<IGXmlDocSnippet> XmlDocSnippets { get; private set; }
 

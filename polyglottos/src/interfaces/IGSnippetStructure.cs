@@ -99,6 +99,8 @@ namespace polyglottos
 
         bool IsNew { get; set; }
 
+        bool IsSynchronized { get; set; }
+
         bool IsNative { get; set; }
 
         bool IsAbstract { get; set; }
