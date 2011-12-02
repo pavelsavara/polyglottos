@@ -68,28 +68,33 @@ namespace polyglottos.generators.java
                 Generator.GenerateSnippet(method.ReturnType, method.IsStatic ? TypeArgs.NameNamespace : TypeArgs.NameNamespaceArguments);
                 CodeWriter.Write(" ");
             }
-            if (!method.IsOperator)
+            var isStaticConstructor = (method is GConstructor && method.IsStatic);
+            if (!method.IsOperator && !isStaticConstructor)
             {
                 WriteName(method);
             }
-            CodeWriter.Write("(");
-            for (int i = 0; i < method.Parameters.Count; i++)
+            if (!isStaticConstructor)
             {
-                IGParameter parameter = method.Parameters[i];
-                if (i > 0)
+                CodeWriter.Write("(");
+                for (int i = 0; i < method.Parameters.Count; i++)
                 {
-                    CodeWriter.Write(", ");
+                    IGParameter parameter = method.Parameters[i];
+                    if (i > 0)
+                    {
+                        CodeWriter.Write(", ");
+                    }
+                    Generator.GenerateSnippet(parameter);
                 }
-                Generator.GenerateSnippet(parameter);
+                CodeWriter.Write(")");
             }
 
             if (method.HideBody)
             {
-                CodeWriter.WriteLine(");");
+                CodeWriter.WriteLine(";");
             }
             else
             {
-                CodeWriter.WriteLine(") {");
+                CodeWriter.WriteLine(" {");
                 CodeWriter.Indent++;
                 if (method.ConstructorBaseCall != null)
                 {

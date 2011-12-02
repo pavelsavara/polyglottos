@@ -44,10 +44,6 @@ namespace polyglottos.generators.java
         {
             if (!modifiers.IsInterface)
             {
-                if (modifiers.IsNew)
-                {
-                    writer.Write("new ");
-                }
                 if (modifiers.IsStatic)
                 {
                     writer.Write("static ");
