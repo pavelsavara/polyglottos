@@ -75,10 +75,6 @@ namespace polyglottos.generators.csharp
                 {
                     writer.Write("override ");
                 }
-                if (modifiers.IsNative)
-                {
-                    writer.Write("native ");
-                }
                 if (modifiers.IsImplicit)
                 {
                     writer.Write("implicit ");

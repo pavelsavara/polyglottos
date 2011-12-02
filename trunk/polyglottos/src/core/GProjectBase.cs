@@ -150,6 +150,7 @@ namespace polyglottos
             RegisterSnippet<IGAssignStatement, GAssignStatement>();
             RegisterSnippet<IGReturnStatement, GReturnStatement>();
             RegisterSnippet<IGThrowStatement, GThrowStatement>();
+            RegisterSnippet<IGBlockStatement, GBlockStatement>();
 
             //expressions
             RegisterSnippet<IGCallMethodExpression, GCallMethodExpression>();
