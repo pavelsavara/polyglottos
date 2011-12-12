@@ -32,7 +32,7 @@ namespace polyglottos.generators
             {
                 CodeWriter.Write("(");
             }
-            Generator.GenerateSnippet(expression.Type, TypeArgs.NameNamespaceArguments);
+            Generator.GenerateSnippet(expression.Type, TypeArgs.NameNamespaceArgumentsPrefix);
             CodeWriter.Write(")");
             GenerateCallParams(expression);
             if (expression.Snippets.Count > 0)

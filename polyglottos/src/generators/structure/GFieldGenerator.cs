@@ -32,7 +32,7 @@ namespace polyglottos.generators
             VerticalSpacingBegin(field, true);
 
             GMemberGeneratorBase.GenerateModifiers(field, CodeWriter);
-            Generator.GenerateSnippet(field.ReturnType, TypeArgs.NameNamespaceArguments);
+            Generator.GenerateSnippet(field.ReturnType, TypeArgs.NameNamespaceArgumentsPrefix);
             CodeWriter.Write(" ");
             CodeWriter.Write(field.Name);
             if (field.Snippets.Count > 0)

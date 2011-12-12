@@ -28,7 +28,7 @@ namespace polyglottos.generators
         {
             var statement = (IGDeclareStatement) snippet;
 
-            Generator.GenerateSnippet(statement.Type, TypeArgs.NameNamespaceArguments);
+            Generator.GenerateSnippet(statement.Type, TypeArgs.NameNamespaceArgumentsPrefix);
             CodeWriter.Write(" ");
             CodeWriter.Write(statement.Name);
             CodeWriter.Write(" = ");

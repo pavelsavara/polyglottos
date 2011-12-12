@@ -31,10 +31,14 @@ namespace polyglottos
         Namespace = 0x2,
         Arguments = 0x4,
         Constraints = 0x8,
+        GlobalPrefix = 0x10,
+        Reflection = 0x20,
+        Signature = 0x40,
 
         NameNamespace = Name | Namespace,
         NameNamespaceArguments = Name | Namespace | Arguments,
-        All = Name | Namespace | Arguments | Constraints,
+        NameNamespaceArgumentsPrefix = Name | Namespace | Arguments | GlobalPrefix,
+        All = Name | Namespace | Arguments | Constraints | GlobalPrefix,
     }
 
     public interface IGType : IGSnippet

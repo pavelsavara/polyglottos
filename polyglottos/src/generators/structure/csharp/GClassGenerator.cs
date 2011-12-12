@@ -87,18 +87,18 @@ namespace polyglottos.generators.csharp
                     {
                         CodeWriter.Write(", ");
                     }
-                    Generator.GenerateSnippet(argument, TypeArgs.NameNamespaceArguments);
+                    Generator.GenerateSnippet(argument, TypeArgs.NameNamespaceArgumentsPrefix);
                 }
                 CodeWriter.Write(">");
             }
             if (clazz.Extends != null)
             {
                 CodeWriter.Write(" : ");
-                Generator.GenerateSnippet(clazz.Extends, TypeArgs.NameNamespaceArguments);
+                Generator.GenerateSnippet(clazz.Extends, TypeArgs.NameNamespaceArgumentsPrefix);
                 foreach (IGType implement in clazz.Implements)
                 {
                     CodeWriter.Write(", ");
-                    Generator.GenerateSnippet(implement, TypeArgs.NameNamespaceArguments);
+                    Generator.GenerateSnippet(implement, TypeArgs.NameNamespaceArgumentsPrefix);
                 }
             }
             else if (clazz.Implements.Count > 0)
@@ -106,7 +106,7 @@ namespace polyglottos.generators.csharp
                 for (int i = 0; i < clazz.Implements.Count; i++)
                 {
                     CodeWriter.Write(i == 0 ? " : " : ", ");
-                    Generator.GenerateSnippet(clazz.Implements[i], TypeArgs.NameNamespaceArguments);
+                    Generator.GenerateSnippet(clazz.Implements[i], TypeArgs.NameNamespaceArgumentsPrefix);
                 }
             }
             CodeWriter.WriteLine();

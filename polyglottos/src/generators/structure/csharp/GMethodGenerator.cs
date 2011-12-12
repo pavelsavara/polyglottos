@@ -39,7 +39,7 @@ namespace polyglottos.generators.csharp
                     {
                         CodeWriter.Write(", ");
                     }
-                    Generator.GenerateSnippet(genericParameter, TypeArgs.All);
+                    Generator.GenerateSnippet(genericParameter, TypeArgs.NameNamespaceArgumentsPrefix);
                 }
                 CodeWriter.Write("> ");
             }
@@ -62,12 +62,12 @@ namespace polyglottos.generators.csharp
             GMemberGeneratorBase.GenerateModifiers(method, CodeWriter);
             if (method.ReturnType != null)
             {
-                Generator.GenerateSnippet(method.ReturnType, TypeArgs.NameNamespaceArguments);
+                Generator.GenerateSnippet(method.ReturnType, TypeArgs.NameNamespaceArgumentsPrefix);
                 CodeWriter.Write(" ");
             }
             if (method.ExplicitInterface != null)
             {
-                Generator.GenerateSnippet(method.ExplicitInterface, TypeArgs.NameNamespaceArguments);
+                Generator.GenerateSnippet(method.ExplicitInterface, TypeArgs.NameNamespaceArgumentsPrefix);
                 CodeWriter.Write('.');
             }
             if (!method.IsOperator)

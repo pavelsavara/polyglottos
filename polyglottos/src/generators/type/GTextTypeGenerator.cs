@@ -26,13 +26,13 @@ namespace polyglottos.generators
     {
         public override void Generate(IGSnippet snippet)
         {
-            GenerateArgs((IGType)snippet, TypeArgs.NameNamespaceArguments);
+            GenerateArgs((IGType)snippet, TypeArgs.NameNamespaceArgumentsPrefix);
         }
 
         public void GenerateArgs(IGType snippet, TypeArgs nameArgs)
         {
             var textStatement = (IGTextType)snippet;
-            if (!textStatement.IsLocalName && Context["language"].Equals("CSharp"))
+            if (!textStatement.IsLocalName && Context["language"].Equals("CSharp") && ((nameArgs & TypeArgs.GlobalPrefix)!=0))
             {
                 CodeWriter.Write("global::");
             }
