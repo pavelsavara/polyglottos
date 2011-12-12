@@ -31,7 +31,7 @@ namespace polyglottos.generators.csharp
             {
                 CodeWriter.Write("this ");
             }
-            Generator.GenerateSnippet(parameter.Type, TypeArgs.NameNamespaceArguments);
+            Generator.GenerateSnippet(parameter.Type, TypeArgs.NameNamespaceArgumentsPrefix);
             CodeWriter.Write(' ');
             CodeWriter.Write(parameter.Name);
         }

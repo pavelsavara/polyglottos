@@ -27,7 +27,7 @@ namespace polyglottos.generators
         public override void Generate(IGSnippet snippet)
         {
             var expression = (IGStaticClassExpression) snippet;
-            Generator.GenerateSnippet(expression.Type, TypeArgs.NameNamespaceArguments);
+            Generator.GenerateSnippet(expression.Type, TypeArgs.NameNamespaceArgumentsPrefix);
             GenerateChain(expression);
         }
     }

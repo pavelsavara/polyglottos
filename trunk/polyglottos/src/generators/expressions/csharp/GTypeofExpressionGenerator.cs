@@ -28,7 +28,7 @@ namespace polyglottos.generators.csharp
         {
             var expression = (IGTypeofExpression) snippet;
             CodeWriter.Write("typeof(");
-            Generator.GenerateSnippet(expression.Type, TypeArgs.NameNamespaceArguments);
+            Generator.GenerateSnippet(expression.Type, TypeArgs.NameNamespaceArgumentsPrefix);
             CodeWriter.Write(")");
             GenerateChain(expression);
         }

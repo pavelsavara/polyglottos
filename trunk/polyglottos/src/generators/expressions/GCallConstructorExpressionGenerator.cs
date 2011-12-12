@@ -28,7 +28,7 @@ namespace polyglottos.generators
         {
             var expression = (IGCallConstructorExpression) snippet;
             CodeWriter.Write("new ");
-            Generator.GenerateSnippet(expression.Type, TypeArgs.NameNamespaceArguments);
+            Generator.GenerateSnippet(expression.Type, TypeArgs.NameNamespaceArgumentsPrefix);
             CodeWriter.Write("(");
             GenerateCallParams(expression);
             CodeWriter.Write(")");

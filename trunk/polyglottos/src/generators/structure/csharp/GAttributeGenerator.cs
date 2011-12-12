@@ -28,7 +28,7 @@ namespace polyglottos.generators.csharp
         {
             var attribute = (IGAttributeSnippet) snippet;
             CodeWriter.Write("[");
-            Generator.GenerateSnippet(attribute.Type, TypeArgs.NameNamespace);
+            Generator.GenerateSnippet(attribute.Type, TypeArgs.NameNamespace | TypeArgs.GlobalPrefix);
             CodeWriter.Write("(");
             GenerateCallParams(attribute);
             CodeWriter.Write(")");
