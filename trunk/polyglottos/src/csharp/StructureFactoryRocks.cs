@@ -142,6 +142,41 @@ namespace polyglottos.csharp
             return snippet;
         }
 
+        public static IGEvent AddEvent(this IGClass self, IGType returnType, string name,
+                                             Action<IGEvent> with = null)
+        {
+            var snippet = self.Project.CreateSnippet<IGEvent>();
+            snippet.Name = name;
+            snippet.ReturnType = returnType;
+            self._AddSnippet(snippet);
+            if (with != null) with(snippet);
+            return snippet;
+        }
+
+        public static IGEventAdder AddAdder(this IGEvent self, Action<IGEventAdder> with = null)
+        {
+            if (self.Adder != null)
+            {
+                return self.Adder;
+            }
+            var snippet = self.Project.CreateSnippet<IGEventAdder>();
+            self.Adder = snippet;
+            if (with != null) with(snippet);
+            return snippet;
+        }
+
+        public static IGEventRemover AddRemover(this IGEvent self, Action<IGEventRemover> with = null)
+        {
+            if (self.Remover != null)
+            {
+                return self.Remover;
+            }
+            var snippet = self.Project.CreateSnippet<IGEventRemover>();
+            self.Remover = snippet;
+            if (with != null) with(snippet);
+            return snippet;
+        }
+
         #endregion
     }
 }

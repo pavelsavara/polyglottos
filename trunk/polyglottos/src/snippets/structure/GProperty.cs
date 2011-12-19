@@ -24,9 +24,9 @@ using System.Collections.Generic;
 
 namespace polyglottos.snippets
 {
-    public class GProperty : GMemberSnippetBase, IGProperty
+    public class GPropertyBase : GMemberSnippetBase
     {
-        public GProperty()
+        public GPropertyBase()
         {
             Parameters = new List<IGParameter>();
             IsPublic = true;
@@ -37,9 +37,6 @@ namespace polyglottos.snippets
 
         public IList<IGParameter> Parameters { get; private set; }
         public IGType ReturnType { get; set; }
-        public IGPropertyGetter Getter { get; set; }
-        public IGPropertySetter Setter { get; set; }
-        public bool IsIndexer { get; set; }
         public IList<IGType> GenericArguments { get; private set; }
         public IGType ExplicitInterface { get; set; }
 
@@ -49,6 +46,20 @@ namespace polyglottos.snippets
         {
             return "(" + GetType().Name + ") " + (ReturnType == null ? "" : ReturnType + " ") + Name;
         }
+    }
+
+
+    public class GProperty : GPropertyBase, IGProperty
+    {
+        public IGPropertyGetter Getter { get; set; }
+        public IGPropertySetter Setter { get; set; }
+        public bool IsIndexer { get; set; }
+    }
+
+    public class GEvent : GPropertyBase, IGEvent
+    {
+        public IGEventAdder Adder { get; set; }
+        public IGEventRemover Remover { get; set; }
     }
 
     public abstract class GPropertyXetter : GContainerSnippetBase, IGPropertyXetter
@@ -128,6 +139,14 @@ namespace polyglottos.snippets
     }
 
     public class GPropertySetter : GPropertyXetter, IGPropertySetter
+    {
+    }
+
+    public class GEventAdder : GPropertyXetter, IGEventAdder
+    {
+    }
+
+    public class GEventRemover : GPropertyXetter, IGEventRemover
     {
     }
 }
