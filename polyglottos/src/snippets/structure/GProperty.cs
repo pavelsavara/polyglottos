@@ -30,6 +30,7 @@ namespace polyglottos.snippets
         {
             Parameters = new List<IGParameter>();
             IsPublic = true;
+            GenericArguments = new List<IGType>();
         }
 
         #region IGProperty Members
@@ -38,8 +39,16 @@ namespace polyglottos.snippets
         public IGType ReturnType { get; set; }
         public IGPropertyGetter Getter { get; set; }
         public IGPropertySetter Setter { get; set; }
+        public bool IsIndexer { get; set; }
+        public IList<IGType> GenericArguments { get; private set; }
+        public IGType ExplicitInterface { get; set; }
 
         #endregion
+
+        public override string ToString()
+        {
+            return "(" + GetType().Name + ") " + (ReturnType == null ? "" : ReturnType + " ") + Name;
+        }
     }
 
     public abstract class GPropertyXetter : GContainerSnippetBase, IGPropertyXetter

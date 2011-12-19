@@ -24,24 +24,67 @@ namespace polyglottos.generators.csharp
 {
     public class GPropertyGenerator : GGeneratorBase
     {
+        protected virtual void WriteGenericArguments(IGSnippetContainer snippet)
+        {
+            var property = (IGProperty)snippet;
+            if (property.GenericArguments.Count > 0)
+            {
+                CodeWriter.Write("<");
+                for (int i = 0; i < property.GenericArguments.Count; i++)
+                {
+                    IGType genericParameter = property.GenericArguments[i];
+                    if (i > 0)
+                    {
+                        CodeWriter.Write(", ");
+                    }
+                    Generator.GenerateSnippet(genericParameter, TypeArgs.NameNamespaceArgumentsPrefix);
+                }
+                CodeWriter.Write("> ");
+            }
+        }
+
         public override void Generate(IGSnippet snippet)
         {
-            var field = (IGProperty) snippet;
-            VerticalSpacingBegin(field, true);
+            var property = (IGProperty) snippet;
+            VerticalSpacingBegin(property, true);
 
-            GMemberGeneratorBase.GenerateModifiers(field, CodeWriter);
-            Generator.GenerateSnippet(field.ReturnType, TypeArgs.NameNamespaceArgumentsPrefix);
+            GMemberGeneratorBase.GenerateModifiers(property, CodeWriter);
+            Generator.GenerateSnippet(property.ReturnType, TypeArgs.NameNamespaceArgumentsPrefix);
             CodeWriter.Write(" ");
-            CodeWriter.Write(field.Name);
+            if (property.ExplicitInterface != null)
+            {
+                Generator.GenerateSnippet(property.ExplicitInterface, TypeArgs.NameNamespaceArgumentsPrefix);
+                CodeWriter.Write('.');
+            }
+            if(property.IsIndexer)
+            {
+                WriteGenericArguments(property);
+                CodeWriter.Write("this[");
+                for (int i = 0; i < property.Parameters.Count; i++)
+                {
+                    IGParameter parameter = property.Parameters[i];
+                    if (i > 0)
+                    {
+                        CodeWriter.Write(", ");
+                    }
+                    Generator.GenerateSnippet(parameter);
+                }
+                CodeWriter.Write("]");
+            }
+            else
+            {
+                WriteGenericArguments(property);
+                CodeWriter.Write(property.Name);
+            }
             CodeWriter.WriteLine(" {");
             CodeWriter.Indent++;
-            if (field.Getter != null)
+            if (property.Getter != null)
             {
-                Generator.GenerateSnippet(field.Getter);
+                Generator.GenerateSnippet(property.Getter);
             }
-            if (field.Setter != null)
+            if (property.Setter != null)
             {
-                Generator.GenerateSnippet(field.Setter);
+                Generator.GenerateSnippet(property.Setter);
             }
             CodeWriter.Indent--;
             CodeWriter.WriteLine("}");

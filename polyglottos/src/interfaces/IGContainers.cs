@@ -67,7 +67,7 @@ namespace polyglottos
     {
     }
 
-    public interface IGStatementContainer : IGExpressionStartContainer
+    public interface IGStatementContainer : IGExpressionStartContainer, IGCommentContainer
     {
     }
 }

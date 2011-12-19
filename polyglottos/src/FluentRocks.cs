@@ -61,5 +61,11 @@ namespace polyglottos
         {
             return condition ? isTrue(self) : self;
         }
+
+        public static T Using<T>(this T self, Action<T> with = null)
+        {
+            if (with != null) with(self);
+            return self;
+        }
     }
 }
