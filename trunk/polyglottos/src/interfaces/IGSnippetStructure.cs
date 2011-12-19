@@ -136,9 +136,9 @@ namespace polyglottos
         IGType ReturnType { get; set; }
     }
 
-    public interface IGProperty : IGMember, IGCommentContainer, IGParameterContainer
+    public interface IGProperty : IGMethod
     {
-        IGType ReturnType { get; set; }
+        bool IsIndexer { get; set; }
         IGPropertyGetter Getter { get; set; }
         IGPropertySetter Setter { get; set; }
     }
