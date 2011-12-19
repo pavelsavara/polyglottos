@@ -72,6 +72,7 @@
     <Compile Include="src\generators\statements\GBlockStatementGenerator.cs" />
     <Compile Include="src\generators\structure\csharp\GAttributeGenerator.cs" />
     <Compile Include="src\generators\structure\csharp\GConstructorGenerator.cs" />
+    <Compile Include="src\generators\structure\csharp\GEventGenerator.cs" />
     <Compile Include="src\generators\structure\csharp\GMemberGeneratorBase.cs" />
     <Compile Include="src\generators\structure\csharp\GParameterGenerator.cs" />
     <Compile Include="src\generators\structure\java\GAttributeGenerator.cs" />

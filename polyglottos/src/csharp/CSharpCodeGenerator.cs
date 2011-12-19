@@ -51,8 +51,11 @@ namespace polyglottos.csharp
             RegisterStrategy<GMethod, GMethodGenerator>();
             RegisterStrategy<GConstructor, GConstructorGenerator>();
             RegisterStrategy<GProperty, GPropertyGenerator>();
+            RegisterStrategy<GEvent, GEventGenerator>();
             RegisterStrategy<GPropertyGetter, GPropertyGetterGenerator>();
             RegisterStrategy<GPropertySetter, GPropertySetterGenerator>();
+            RegisterStrategy<GEventAdder, GEventAdderGenerator>();
+            RegisterStrategy<GEventRemover, GEventRemoverGenerator>();
             RegisterStrategy<GParameter, GParameterGenerator>();
 
             //statements

@@ -42,7 +42,7 @@ namespace polyglottos
     {
     }
 
-    public interface IGBodyRegion : IGRegion, IGStatementContainer, IGCommentContainer
+    public interface IGBodyRegion : IGRegion, IGStatementContainer
     {
     }
 
@@ -118,7 +118,7 @@ namespace polyglottos
         bool IsExplicit { get; set; }
     }
 
-    public interface IGMethod : IGMember, IGStatementContainer, IGCommentContainer, IGRegionContainer,
+    public interface IGMethod : IGMember, IGStatementContainer, IGRegionContainer,
                                 IGBodyRegionContainer, IGParameterContainer
     {
         IGType ReturnType { get; set; }
@@ -143,8 +143,13 @@ namespace polyglottos
         IGPropertySetter Setter { get; set; }
     }
 
+    public interface IGEvent : IGMethod
+    {
+        IGEventAdder Adder { get; set; }
+        IGEventRemover Remover { get; set; }
+    }
 
-    public interface IGPropertyXetter : IGCommentContainer, IGRegionContainer, IGStatementContainer,
+    public interface IGPropertyXetter : IGRegionContainer, IGStatementContainer,
                                         IGBodyRegionContainer, IGVisibility
     {
         bool HideBody { get; set; }
@@ -155,6 +160,14 @@ namespace polyglottos
     }
 
     public interface IGPropertySetter : IGPropertyXetter
+    {
+    }
+
+    public interface IGEventAdder : IGPropertyXetter
+    {
+    }
+
+    public interface IGEventRemover : IGPropertyXetter
     {
     }
 

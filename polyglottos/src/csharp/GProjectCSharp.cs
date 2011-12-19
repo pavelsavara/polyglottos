@@ -42,8 +42,11 @@ namespace polyglottos.csharp
 
             //members
             RegisterSnippet<IGProperty, GProperty>();
+            RegisterSnippet<IGEvent, GEvent>();
             RegisterSnippet<IGPropertyGetter, GPropertyGetter>();
             RegisterSnippet<IGPropertySetter, GPropertySetter>();
+            RegisterSnippet<IGEventAdder, GEventAdder>();
+            RegisterSnippet<IGEventRemover, GEventRemover>();
 
             //statements
             RegisterSnippet<IGUsingStatement, GUsingStatement>();
