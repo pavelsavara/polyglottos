@@ -78,7 +78,7 @@ namespace polyglottos.generators.java
                     {
                         CodeWriter.Write(", ");
                     }
-                    Generator.GenerateSnippet(argument, TypeArgs.NameNamespaceArgumentsPrefix);
+                    Generator.GenerateSnippet(argument, TypeArgs.NameNamespaceArguments);
                 }
                 CodeWriter.Write(">");
             }
