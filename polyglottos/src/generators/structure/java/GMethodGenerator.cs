@@ -39,7 +39,7 @@ namespace polyglottos.generators.java
                     {
                         CodeWriter.Write(", ");
                     }
-                    Generator.GenerateSnippet(genericParameter, TypeArgs.NameNamespaceArgumentsPrefix);
+                    Generator.GenerateSnippet(genericParameter, TypeArgs.NameNamespaceArguments);
                 }
                 CodeWriter.Write("> ");
             }
