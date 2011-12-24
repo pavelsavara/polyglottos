@@ -143,8 +143,7 @@ namespace polyglottos
             return snippet;
         }
 
-        public static IGAttributeSnippet AddAttribute(this IGAttributeContainer self, IGType type,
-                                                Action<IGAttributeSnippet> with = null)
+        public static IGAttributeSnippet AddAttribute(this IGAttributeContainer self, IGType type, Action<IGAttributeSnippet> with = null)
         {
             var snippet = self.Project.CreateSnippet<IGAttributeSnippet>();
             snippet.Type = type;
@@ -152,6 +151,15 @@ namespace polyglottos
             self.AttributeSnippets.Add(snippet);
             if (with != null) with(snippet);
             return snippet;
+        }
+
+        //string type sugar
+        public static IGAttributeSnippet AddAttribute(this IGAttributeContainer self, string type, Action<IGAttributeSnippet> with = null)
+        {
+            var snippet = self.Project.CreateSnippet<IGTextType>();
+            snippet.Name = type;
+            snippet.IsLocalName = true;
+            return AddAttribute(self, snippet, with);
         }
 
         #endregion
