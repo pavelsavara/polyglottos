@@ -34,6 +34,7 @@ namespace polyglottos
         GlobalPrefix = 0x10,
         Reflection = 0x20,
         Signature = 0x40,
+        Filename = 0x80,
 
         NameNamespace = Name | Namespace,
         NameNamespaceArguments = Name | Namespace | Arguments,
