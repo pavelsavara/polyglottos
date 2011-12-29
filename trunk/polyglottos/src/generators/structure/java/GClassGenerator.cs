@@ -99,12 +99,18 @@ namespace polyglottos.generators.java
                     Generator.GenerateSnippet(clazz.Implements[i], TypeArgs.NameNamespaceArguments);
                 }
             }
-            IfcExtension(clazz.Name);
-            
+            if (clazz.IsPartial)
+            {
+                IfcExtension(clazz.Name);
+            }
+
             CodeWriter.WriteLine("{");
             CodeWriter.Indent++;
 
-            CodeExtension(clazz.Name);
+            if (clazz.IsPartial)
+            {
+                CodeExtension(clazz.Name);
+            }
         }
 
         //TODO refactor out

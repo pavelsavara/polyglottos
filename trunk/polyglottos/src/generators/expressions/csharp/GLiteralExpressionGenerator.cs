@@ -51,6 +51,11 @@ namespace polyglottos.generators.csharp
                 CodeWriter.Write("\"" + esc + "\"");
                 return;
             }
+            if (value is bool)
+            {
+                CodeWriter.Write((bool) value ? "true" : "false");
+                return;
+            }
             if (value is decimal)
             {
                 CodeWriter.Write(value + "m");
