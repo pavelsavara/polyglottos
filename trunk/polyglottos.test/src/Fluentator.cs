@@ -57,7 +57,15 @@ namespace polyglottos.test.src
 
         protected void GenerateFluentAPI(IType root)
         {
-            work.Enqueue(root);
+            GenerateFluentAPI(new[] { root });
+        }
+
+        protected void GenerateFluentAPI(IEnumerable<IType> roots)
+        {
+            foreach (var root in roots)
+            {
+                work.Enqueue(root);
+            }
 
             var project = new GProjectCSharp();
             while (work.Count>0)
@@ -68,30 +76,34 @@ namespace polyglottos.test.src
             project.GenerateAllFiles();
         }
 
-        protected virtual void ProcessType(GProjectCSharp project, IType root)
+        protected virtual IGNamespace ProcessType(GProjectCSharp project, IType root)
         {
-            foreach (ITypeCollection c in root.Collections)
-            {
-                ITypeCollection collection = c;
-                EnqueueWork(collection.Type);
-                project.AddFile(Path.Combine(Config.ProjectDirectory, root.TypeName+".gen.cs"),
-                    file =>
-                        {
-                            file.AddNamespace(root.TypeNamespace,
-                                ns =>
-                                    {
-                                        ns.AddClass(root.TypeName + "Extensions",
-                                            cls =>
+            IGNamespace res=null;
+            project.AddFile(Path.Combine(Config.ProjectDirectory, root.TypeName + ".gen.cs"),
+                file =>
+                    {
+                        res=file.AddNamespace(root.TypeNamespace,
+                            ns =>
+                                {
+                                    ns.AddClass(root.TypeName + "Extensions",
+                                        cls =>
+                                            {
+                                                cls.IsStatic = true;
+                                                foreach (ITypeCollection c in root.Collections)
                                                 {
-                                                    cls.IsStatic = true;
-                                                    foreach (ITypeConstructor constructor in collection.Type.Constructors)
+                                                    ITypeCollection collection = c;
+                                                    EnqueueWork(collection.Type);
+                                                    foreach (
+                                                        ITypeConstructor constructor in collection.Type.Constructors)
                                                     {
                                                         AddConstructor(cls, root, collection, constructor);
                                                     }
-                                                });
-                                    });
-                        });
-            }
+                                                }
+                                            });
+                                });
+
+                    });
+            return res;
         }
 
         protected virtual void AddConstructor(IGClass cls, IType root, ITypeCollection collection, ITypeConstructor constructor)
@@ -101,16 +113,14 @@ namespace polyglottos.test.src
                 method =>
                     {
                         method.IsStatic = true;
-                        method.AddParameter(root.TypeFullName, "self",
-                            self => { self.IsThis = true; });
-                        foreach (IParameter parameter in constructor.Parameters)
-                        {
-                            method.AddParameter(parameter.TypeFullName, parameter.ParameterName);
-                        }
+                        method.AddParameter(root.TypeFullName, "self", self => { self.IsThis = true; });
+
+                        AddConstructorParameters(collection, constructor, method);
+
                         method.AddParameter("System.Action<" + child.TypeFullName + ">", "result").DefaultValue(null);
 
                         IGExpressionStartContainer item = method.Declare(child.TypeFullName, "item");
-                        InstanceFactory(item, child, constructor);
+                        InstanceFactory(item, collection, constructor);
 
                         AddInstanceToCollection(collection, method);
 
@@ -120,21 +130,34 @@ namespace polyglottos.test.src
                     });
         }
 
+        protected virtual void AddConstructorParameters(ITypeCollection collection, ITypeConstructor constructor, IGMethod method)
+        {
+            foreach (IParameter parameter in constructor.Parameters)
+            {
+                method.AddParameter(parameter.TypeFullName, parameter.ParameterName);
+            }
+        }
+
         protected virtual void AddInstanceToCollection(ITypeCollection collection, IGMethod method)
         {
             method.CallField("self").CallField(collection.Name).Call("Add").AddParameterVariable("item");
         }
 
-        protected virtual IGCallParametersContainer InstanceFactory(IGExpressionStartContainer item, IType child, ITypeConstructor constructor)
+        protected virtual IGCallParametersContainer InstanceFactory(IGExpressionStartContainer item, ITypeCollection collection, ITypeConstructor constructor)
         {
-            return item.New(child.TypeFullName,
+            return item.New(collection.Type.TypeFullName,
                 callConstructor=>
                     {
-                        foreach (var parameter in constructor.Parameters)
-                        {
-                            callConstructor.AddParameterVariable(parameter.ParameterName);
-                        }
+                        InstanceFactoryParams(collection, constructor, callConstructor);
                     });
+        }
+
+        protected virtual void InstanceFactoryParams(ITypeCollection collection, ITypeConstructor constructor, IGCallConstructorExpression callConstructor)
+        {
+            foreach (var parameter in constructor.Parameters)
+            {
+                callConstructor.AddParameterVariable(parameter.ParameterName);
+            }
         }
     }
 }
