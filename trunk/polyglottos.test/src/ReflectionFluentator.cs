@@ -158,11 +158,10 @@ namespace polyglottos.test.src
             }
         }
 
-
         public void GenerateFluentAPI(Type root, string projectDirectory)
         {
             ProjectDirectory = projectDirectory;
-            base.GenerateFluentAPI(new ReflType(root));
+            GenerateFluentAPI(new ReflType(root));
         }
 
         protected override IFluentatorConfig Config
