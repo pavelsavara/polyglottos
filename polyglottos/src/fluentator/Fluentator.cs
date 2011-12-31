@@ -58,7 +58,11 @@ namespace polyglottos.fluentator
 
             while (work.Count > 0)
             {
-                ProcessType(work.Dequeue());
+                IGNamespace ns = ProcessType(work.Dequeue());
+                if (ns.Snippets.Count == 0)
+                {
+                    ns.ParentSnippet.Remove();
+                }
             }
 
             GenerateAllFiles();
@@ -69,28 +73,73 @@ namespace polyglottos.fluentator
             IGNamespace res = null;
             AddFile(Path.Combine(Config.ProjectDirectory, root.TypeName + ".gen.cs"),
                 file =>
-                {
-                    file.AddComment("file was generated via Polyglottos Fluentator");
-                    file.AddComment("http://code.google.com/p/polyglottos/ by Pavel Savara");
-                    res = file.AddNamespace(root.TypeNamespace,
-                        ns =>
-                        {
-                            ns.AddClass(root.TypeName + "Extensions",
-                                cls =>
+                    {
+                        file.AddComment("file was generated via Polyglottos Fluentator");
+                        file.AddComment("http://code.google.com/p/polyglottos/ by Pavel Savara");
+                        res = file.AddNamespace(root.TypeNamespace,
+                            ns =>
                                 {
-                                    cls.IsStatic = true;
-                                
-                                    foreach (ITypeCollection collection in root.Collections)
-                                    {
-                                        EnqueueWork(collection.Type);
-                                        foreach (ITypeConstructor constructor in collection.Type.Constructors)
-                                        {
-                                            AddConstructor(cls, root, collection, constructor);
-                                        }
-                                    }
-                                });
-                        });
+                                    ns.AddClass(root.TypeName + "Extensions",
+                                        cls =>
+                                            {
+                                                cls.IsPartial = true;
+                                                cls.IsStatic = true;
 
+                                                foreach (ITypeCollection collection in root.Collections)
+                                                {
+                                                    EnqueueWork(collection.Type);
+                                                    AddAdd(cls, root, collection);
+                                                    AddAddRange(cls, root, collection);
+                                                    foreach (ITypeConstructor constructor in collection.Type.Constructors)
+                                                    {
+                                                        AddConstructor(cls, root, collection, constructor);
+                                                    }
+                                                }
+                                                if (cls.Snippets.Count==0) cls.Remove();
+                                            });
+                                });
+                    });
+            return res;
+        }
+
+        protected virtual IGMethod AddAdd(IGClass cls, IType root, ITypeCollection collection)
+        {
+            IType child = collection.Type;
+            IGMethod res = cls.AddMethod(child.TypeFullName, Config.AddPrefix + child.TypeName + Config.AddPostfix,
+                method =>
+                {
+                    method.IsStatic = true;
+                    method.AddParameter(root.TypeFullName, "self", self => { self.IsThis = true; });
+                    method.AddParameter(child.TypeFullName, "item");
+
+                    method.AddParameter("System.Action<" + child.TypeFullName + ">", "result").DefaultValue(null);
+
+                    AddInstanceToCollection(collection, method);
+
+                    method.AddTextStatement("if (result != null) result(item)");
+
+                    method.Return().TextExpression("item");
+                });
+            return res;
+        }
+
+        protected virtual IGMethod AddAddRange(IGClass cls, IType root, ITypeCollection collection)
+        {
+            IType child = collection.Type;
+            IGMethod res = cls.AddMethod("System.Collections.Generic.IEnumerable<" + child.TypeFullName + ">", Config.AddRangePrefix + child.TypeName + Config.AddRangePostfix,
+                method =>
+                {
+                    method.IsStatic = true;
+                    method.AddParameter(root.TypeFullName, "self", self => { self.IsThis = true; });
+                    method.AddParameter("System.Collections.Generic.IEnumerable<"+child.TypeFullName+">", "items");
+
+                    method.AddParameter("System.Action<" + child.TypeFullName + ">", "result").DefaultValue(null);
+
+                    AddInstancesToCollection(collection, method);
+
+                    method.AddTextStatement("if (result != null) foreach (var item in items) { result(item); }");
+
+                    method.Return().TextExpression("items");
                 });
             return res;
         }
@@ -131,6 +180,11 @@ namespace polyglottos.fluentator
         protected virtual void AddInstanceToCollection(ITypeCollection collection, IGMethod method)
         {
             method.CallField("self").CallField(collection.Name).Call("Add").AddParameterVariable("item");
+        }
+
+        protected virtual void AddInstancesToCollection(ITypeCollection collection, IGMethod method)
+        {
+            method.CallField("self").CallField(collection.Name).Call("AddRange").AddParameterVariable("items");
         }
 
         protected virtual IGCallParametersContainer InstanceFactory(IGExpressionStartContainer item, ITypeCollection collection, ITypeConstructor constructor)

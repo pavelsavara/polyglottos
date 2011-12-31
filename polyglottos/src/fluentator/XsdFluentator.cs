@@ -309,12 +309,13 @@ namespace polyglottos.fluentator
                 XsdType type = root as XsdType;
 
                 ns.AddClass(root.TypeName,
-                    model =>
+                    cls =>
                     {
-                        model.Extends = new GTextType("System.Xml.Linq.XElement");
+                        cls.IsPartial = true;
+                        cls.Extends = new GTextType("System.Xml.Linq.XElement");
                         foreach (ITypeConstructor typeConstructor in root.Constructors)
                         {
-                            model.AddConstructor(
+                            cls.AddConstructor(
                                 constructor =>
                                 {
                                     constructor.AddParameter(GTypeClr.String, "xelementname");
@@ -344,6 +345,11 @@ namespace polyglottos.fluentator
             method.CallField("self").Call("Add").AddParameterVariable("item");
         }
 
+        protected override void AddInstancesToCollection(Fluentator.ITypeCollection collection, IGMethod method)
+        {
+            method.AddTextStatement("foreach (var item in items) { self.Add(item); }");
+        }
+
         protected override void InstanceFactoryParams(ITypeCollection collection, ITypeConstructor constructor, IGCallConstructorExpression callConstructor)
         {
             callConstructor.AddParameterValue(collection.Name);
@@ -363,6 +369,16 @@ namespace polyglottos.fluentator
         public string AddPostfix
         {
             get { return ""; }
+        }
+
+        public string AddRangePrefix
+        {
+            get { return "Add"; }
+        }
+
+        public string AddRangePostfix
+        {
+            get { return "s"; }
         }
 
         public string ProjectDirectory { get; set; }

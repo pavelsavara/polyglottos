@@ -194,6 +194,12 @@ namespace polyglottos
             return snippet;
         }
 
+        public static void Remove(this IGSnippetContainer self)
+        {
+            self.ParentSnippet._RemoveSnippet(self);
+        }
+
+
         #endregion
     }
 }
