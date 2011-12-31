@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="library"
+    targetNamespace="http://polyglottos.googlecode.com/svn/trunk/demomodel/library.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://polyglottos.googlecode.com/svn/trunk/demomodel/library.xsd"
+    xmlns:mstns="http://polyglottos.googlecode.com/svn/trunk/demomodel/library.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="library" type="Library">
+  </xs:element>
+  
+  <xs:complexType name="Library">
+    <xs:sequence>
+      <xs:element name="book" type="Book" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="Book">
+    <xs:sequence>
+      <xs:element name="author" type="Author" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="summary" type="xs:string" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="Author">
+    <xs:attribute name="name" type="xs:string" use="required" />
+  </xs:complexType>
+
+</xs:schema>
