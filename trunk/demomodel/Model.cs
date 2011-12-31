@@ -68,7 +68,7 @@ namespace demomodel
         public string Name { get; private set; }
         public string Id { get; private set; }
 
-        public List<Team> Teams { get; private set; }
+        public List<Team> Teams { get; set; }
     }
 
     public class Team
@@ -92,6 +92,6 @@ namespace demomodel
         }
 
         public string Name;
-        public string Age;
+        public int Age;
     }
 }

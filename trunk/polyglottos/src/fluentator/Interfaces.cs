@@ -56,6 +56,8 @@ namespace polyglottos.fluentator
         {
             string AddPrefix { get; }
             string AddPostfix { get; }
+            string AddRangePrefix { get; }
+            string AddRangePostfix { get; }
             string ProjectDirectory { get; }
         }
     }

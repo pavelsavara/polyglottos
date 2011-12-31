@@ -202,6 +202,16 @@ namespace polyglottos.fluentator
             get { return ""; }
         }
 
+        public string AddRangePrefix
+        {
+            get { return "Add"; }
+        }
+
+        public string AddRangePostfix
+        {
+            get { return "s"; }
+        }
+
         public string ProjectDirectory { get; set; }
     }
 }
