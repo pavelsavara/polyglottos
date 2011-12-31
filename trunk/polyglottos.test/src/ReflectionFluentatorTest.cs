@@ -44,53 +44,6 @@ namespace polyglottos.test
         }
 
         [Test]
-        public void OldCompanyBuilder()
-        {
-            var devNames = new List<string> {"Vasek", "Pasek"};
-
-            var model = new Model();
-            var pavel = new Employee("Pavel");
-            model.Companies.Add(new Company("Boldbrick & co.")
-            {
-                Departments = new List<Department>
-                {
-                    new Department("Software & Visions", "swv")
-                    {
-                        Teams = new List<Team>
-                        {
-                            new Team("Visions")
-                            {
-                                Employees = new List<Employee>
-                                {
-                                    // I was forced to move 
-                                    // pavel variable declaration completely out of scope
-                                    pavel,
-                                    new Employee("Ondra"),
-                                },
-                                IsAwesome = true,
-                            },
-                            new Team("Developers")
-                            {
-                                Employees = new List<Employee>
-                                (
-                                    // I can't do any statements or declarations here
-                                    // to prepare my data in-place
-                                    devNames.Select(n=>new Employee(n))
-                                )
-                                {
-                                    // note I can't add pavel first
-                                    pavel,
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-
-
-        [Test]
         public void NewCompanyBuilder()
         {
             var devNames = new List<string> {"Vasek", "Pasek"};
@@ -140,6 +93,51 @@ namespace polyglottos.test
 
             Team officeTeam = allTeams.Single(t => t.Name == "All hands");
             officeTeam.AddEmployee("Petra");
+        }
+
+        [Test]
+        public void OldCompanyBuilder()
+        {
+            var devNames = new List<string> { "Vasek", "Pasek" };
+
+            var model = new Model();
+            var pavel = new Employee("Pavel");
+            model.Companies.Add(new Company("Boldbrick & co.")
+            {
+                Departments = new List<Department>
+                {
+                    new Department("Software & Visions", "swv")
+                    {
+                        Teams = new List<Team>
+                        {
+                            new Team("Visions")
+                            {
+                                Employees = new List<Employee>
+                                {
+                                    // I was forced to move 
+                                    // pavel variable declaration completely out of scope
+                                    pavel,
+                                    new Employee("Ondra"),
+                                },
+                                IsAwesome = true,
+                            },
+                            new Team("Developers")
+                            {
+                                Employees = new List<Employee>
+                                (
+                                    // I can't do any statements or declarations here
+                                    // to prepare my data in-place
+                                    devNames.Select(n=>new Employee(n))
+                                )
+                                {
+                                    // note I can't add pavel first
+                                    pavel,
+                                }
+                            }
+                        }
+                    }
+                }
+            });
         }
     }
 }
