@@ -160,6 +160,7 @@ namespace polyglottos
             RegisterSnippet<IGStaticClassExpression, GStaticClassExpression>();
             RegisterSnippet<IGLiteralExpression, GLiteralExpression>();
             RegisterSnippet<IGTypeofExpression, GTypeofExpression>();
+            RegisterSnippet<IGDefaultExpression, GDefaultExpression>();
             RegisterSnippet<IGCastExpression, GCastExpression>();
             RegisterSnippet<IGDeclareStatement, GDeclareStatement>();
             RegisterSnippet<IGTextExpression, GTextExpression>();

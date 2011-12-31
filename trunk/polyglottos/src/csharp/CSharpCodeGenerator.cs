@@ -64,6 +64,7 @@ namespace polyglottos.csharp
             //expressions
             RegisterStrategy<GLiteralExpression, GLiteralExpressionGenerator>();
             RegisterStrategy<GTypeofExpression, GTypeofExpressionGenerator>();
+            RegisterStrategy<GDefaultExpression, GDefaultExpressionGenerator>();
         }
     }
 }

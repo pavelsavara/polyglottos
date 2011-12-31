@@ -98,6 +98,11 @@ namespace polyglottos
         IGType Type { get; set; }
     }
 
+    public interface IGDefaultExpression : IGExpression
+    {
+        IGType Type { get; set; }
+    }
+
     public interface IGCastExpression : IGExpression, IGCallParametersContainer
     {
         IGType Type { get; set; }
@@ -106,6 +111,7 @@ namespace polyglottos
     public interface IGCallConstructorExpression : IGExpression, IGCallParametersContainer
     {
         IGType Type { get; set; }
+        bool IsArray { get; set; }
     }
 
     public interface IGStaticClassExpression : IGExpression

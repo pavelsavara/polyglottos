@@ -157,6 +157,17 @@ namespace polyglottos
             return snippet;
         }
 
+        //string type sugar
+        public static IGCallConstructorExpression New(this IGExpressionStartContainer self, string type,
+                                          Action<IGCallConstructorExpression> result = null)
+        {
+            var snippet = self.Project.CreateSnippet<IGTextType>();
+            snippet.Name = type;
+            snippet.IsLocalName = true;
+            return self.New(snippet, result);
+        }
+
+        
         public static IGCastExpression Cast(this IGExpressionStartContainer self, IGType type,
                                             Action<IGCastExpression> result = null)
         {
@@ -186,6 +197,26 @@ namespace polyglottos
             snippet.Name = type;
             snippet.IsLocalName = true;
             return self.TypeOf(snippet, result);
+        }
+
+        public static IGDefaultExpression Default(this IGExpressionStartContainer self, IGType type,
+                                                Action<IGDefaultExpression> result = null)
+        {
+            var snippet = self.Project.CreateSnippet<IGDefaultExpression>();
+            snippet.Type = type;
+            self._AddSnippet(snippet);
+            if (result != null) result(snippet);
+            return snippet;
+        }
+
+        // string type sugar
+        public static IGDefaultExpression Default(this IGExpressionStartContainer self, string type,
+                                                Action<IGDefaultExpression> result = null)
+        {
+            var snippet = self.Project.CreateSnippet<IGTextType>();
+            snippet.Name = type;
+            snippet.IsLocalName = true;
+            return self.Default(snippet, result);
         }
 
         public static IGCallMethodExpression Call(this IGExpressionContainer self, string methodName,
@@ -233,6 +264,16 @@ namespace polyglottos
         #endregion
 
         #region Parameters
+
+        public static IGExpression DefaultValue(this IGParameter self, object value,
+                                         Action<IGExpression> with = null)
+        {
+            var snippet = self.Project.CreateSnippet<IGLiteralExpression>();
+            snippet.Value = value;
+            self.Default._AddSnippet(snippet);
+            if (with != null) with(snippet);
+            return snippet;
+        }
 
         public static IGCallParameters AddParameter(this IGCallParametersContainer self)
         {
