@@ -15,40 +15,44 @@ namespace polyglottos.test.src
         {
             var rf=new ReflectionFluentator();
 
-            rf.GenerateFluentAPI(typeof(Company), @"..\..\DemoModel");
+            rf.GenerateFluentAPI(typeof(Model), @"..\..\DemoModel");
         }
 
         [Test]
         public void TestCompanyBuilder()
         {
-            var company = new Company("Boldbrick & co.");
-            company.AddDepartment("Software & Visions", "swv",
-                swv =>
-                {
-                    swv.AddTeam("Visions",
-                        visions =>
-                        {
-                            visions.IsAwesome = true;
-                            visions.AddEmployee("Pavel");
-                            visions.AddEmployee("Ondra");
-                        });
-                    swv.AddTeam("Developers",
-                        devs =>
-                        {
-                            devs.AddEmployee("Vasek");
-                            devs.AddEmployee("Pasek");
-                        });
-                });
-
-            company.AddDepartment("Office Management",
-                office => office.AddTeam("All hands",
-                    jj =>
+            var model = new Model();
+            model.AddCompany("Boldbrick & co.",
+                bb =>
                     {
-                        jj.AddEmployee("Jana");
-                        jj.AddEmployee("Lucka");
-                    }));
+                        bb.AddDepartment("Software & Visions", "swv",
+                            swv =>
+                                {
+                                    swv.AddTeam("Visions",
+                                        visions =>
+                                            {
+                                                visions.IsAwesome = true;
+                                                visions.AddEmployee("Pavel");
+                                                visions.AddEmployee("Ondra");
+                                            });
+                                    swv.AddTeam("Developers",
+                                        devs =>
+                                            {
+                                                devs.AddEmployee("Vasek");
+                                                devs.AddEmployee("Pasek");
+                                            });
+                                });
 
-            Team visionsTeam = company.Departments.Where(dept => dept.Id == "swv").SelectMany(d => d.Teams).Single(t => t.Name == "Visions");
+                        bb.AddDepartment("Office Management",
+                            office => office.AddTeam("All hands",
+                                jl =>
+                                    {
+                                        jl.AddEmployee("Jana");
+                                        jl.AddEmployee("Lucka");
+                                    }));
+                    });
+
+            Team visionsTeam = model.Companies[0].Departments.Where(dept => dept.Id == "swv").SelectMany(d => d.Teams).Single(t => t.Name == "Visions");
             Assert.IsTrue(visionsTeam.IsAwesome);
         }
     }
