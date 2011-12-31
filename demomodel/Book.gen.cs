@@ -14,7 +14,7 @@ namespace demomodel
     public class Book : global::System.Xml.Linq.XElement
     {
         public Book(string xelementname, System.String name)
-            : base(System.Xml.Linq.XName.Get(xelementname))
+            : base(System.Xml.Linq.XName.Get(xelementname,"http://polyglottos.googlecode.com/svn/trunk/demomodel/library.xsd"))
         {
             Add(new System.Xml.Linq.XAttribute(System.Xml.Linq.XName.Get("name"), name));
         }

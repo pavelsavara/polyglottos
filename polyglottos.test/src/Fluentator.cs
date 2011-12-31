@@ -106,10 +106,10 @@ namespace polyglottos.test.src
             return res;
         }
 
-        protected virtual void AddConstructor(IGClass cls, IType root, ITypeCollection collection, ITypeConstructor constructor)
+        protected virtual IGMethod AddConstructor(IGClass cls, IType root, ITypeCollection collection, ITypeConstructor constructor)
         {
             IType child = collection.Type;
-            cls.AddMethod(child.TypeFullName, Config.AddPrefix + child.TypeName + Config.AddPostfix,
+            IGMethod res = cls.AddMethod(child.TypeFullName, Config.AddPrefix + child.TypeName + Config.AddPostfix,
                 method =>
                     {
                         method.IsStatic = true;
@@ -128,6 +128,7 @@ namespace polyglottos.test.src
 
                         method.Return().TextExpression("item");
                     });
+            return res;
         }
 
         protected virtual void AddConstructorParameters(ITypeCollection collection, ITypeConstructor constructor, IGMethod method)

@@ -14,7 +14,7 @@ namespace demomodel
     public class Library : global::System.Xml.Linq.XElement
     {
         public Library(string xelementname, System.String id)
-            : base(System.Xml.Linq.XName.Get(xelementname))
+            : base(System.Xml.Linq.XName.Get(xelementname,"http://polyglottos.googlecode.com/svn/trunk/demomodel/library.xsd"))
         {
             Add(new System.Xml.Linq.XAttribute(System.Xml.Linq.XName.Get("id"), id));
         }
