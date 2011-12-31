@@ -71,18 +71,25 @@ namespace polyglottos.fluentator
                     FieldInfo[] fields = type.GetFields();
 
                     return properties.Where(p => CollectionTest(p.PropertyType))
-                        .Select(p => new ReflCollection(p.PropertyType.GetGenericArguments()[0], p.Name))
+                        .SelectMany(p => p.PropertyType.GetInterfaces().Where(InterfaceCollectionTest), (p, i) => new ReflCollection(i.GetGenericArguments()[0], p.Name))
                         .Union(fields.Where(f => CollectionTest(f.FieldType))
-                            .Select(f => new ReflCollection(f.FieldType.GetGenericArguments()[0], f.Name)))
+                            .SelectMany(f => f.FieldType.GetInterfaces().Where(InterfaceCollectionTest), (f, i) => new ReflCollection(i.GetGenericArguments()[0], f.Name)))
                         .Cast<ITypeCollection>();
                 }
             }
 
             private static bool CollectionTest(Type propertyType)
             {
-                return propertyType.IsGenericType &&
-                       typeof(ICollection<>).MakeGenericType(propertyType.GetGenericArguments()).IsAssignableFrom(
-                           propertyType);
+                return propertyType.GetInterfaces().Any(InterfaceCollectionTest);
+
+
+            }
+
+            private static bool InterfaceCollectionTest(Type interfaceType)
+            {
+                return interfaceType.IsInterface && interfaceType.IsGenericType && interfaceType.GetGenericTypeDefinition().Equals(typeof (ICollection<>));
+
+
             }
 
             public bool Equals(IType other)
