@@ -48,7 +48,6 @@
     <Compile Include="Book.gen.cs" />
     <Compile Include="Company.gen.cs" />
     <Compile Include="Department.gen.cs" />
-    <Compile Include="Employee.gen.cs" />
     <Compile Include="Library.gen.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Model.gen.cs" />
