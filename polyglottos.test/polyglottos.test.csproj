@@ -52,11 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\CSharpCodeDomTest.cs" />
-    <Compile Include="src\Fluentator.cs" />
-    <Compile Include="src\FluentatorTest.cs" />
+    <Compile Include="src\ReflectionFluentatorTest.cs" />
+    <Compile Include="src\XsdFluentatorTest.cs" />
     <Compile Include="src\JavaCodeDomTest.cs" />
-    <Compile Include="src\ReflectionFluentator.cs" />
-    <Compile Include="src\XSDFluentator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DemoModel\demomodel.csproj">

@@ -25,9 +25,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace polyglottos.test.src
+namespace polyglottos.fluentator
 {
-    public class ReflectionFluentator : Fluentator, IFluentatorConfig
+    public class ReflectionFluentator : Fluentator, Fluentator.IFluentatorConfig
     {
         private class ReflType : IType
         {
@@ -81,7 +81,7 @@ namespace polyglottos.test.src
             private static bool CollectionTest(Type propertyType)
             {
                 return propertyType.IsGenericType &&
-                       typeof (ICollection<>).MakeGenericType(propertyType.GetGenericArguments()).IsAssignableFrom(
+                       typeof(ICollection<>).MakeGenericType(propertyType.GetGenericArguments()).IsAssignableFrom(
                            propertyType);
             }
 
@@ -137,7 +137,8 @@ namespace polyglottos.test.src
         {
             private readonly ParameterInfo parameter;
 
-            public RelfParameter(ParameterInfo parameter) : base(parameter.ParameterType)
+            public RelfParameter(ParameterInfo parameter)
+                : base(parameter.ParameterType)
             {
                 this.parameter = parameter;
             }
