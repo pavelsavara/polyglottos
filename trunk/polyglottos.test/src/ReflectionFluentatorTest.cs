@@ -1,4 +1,4 @@
-#region Copyright (C) 2011 by Pavel Savara
+﻿#region Copyright (C) 2011 by Pavel Savara
 
 /*
 This file is part of polyglottos library - code generator tool
@@ -21,57 +21,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endregion
 
 // ReSharper disable ConvertToLambdaExpression
+// ReSharper disable PossibleMultipleEnumeration
 
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Xml.Linq;
 using demomodel;
 using NUnit.Framework;
+using polyglottos.fluentator;
 
-namespace polyglottos.test.src
+namespace polyglottos.test
 {
     
     [TestFixture]
-    public class FluentatorTest
+    public class ReflectionFluentatorTest
     {
-        [Test]
-        public void TestXSDFluentator()
-        {
-            var rf = new XSDFluentator();
-
-            rf.GenerateFluentAPI(XDocument.Load(@"..\..\DemoModel\library.xsd"), "demomodel", @"..\..\DemoModel");
-        }
-
-        
         [Test]
         public void TestReflectionFluentator()
         {
             var rf=new ReflectionFluentator();
 
             rf.GenerateFluentAPI(typeof(Model), @"..\..\DemoModel");
-        }
-
-        [Test]
-        public void TestLibraryBuilder()
-        {
-            var doc=new XDocument();
-            doc.AddLibrary("Prague",
-                prague =>
-                    {
-                        prague.AddBook("Saturnin",
-                            saturnin =>
-                                {
-                                    saturnin.AddAuthor("Zdenek Jirotka");
-                                });
-                        prague.AddBook("Bylo Nas 5",
-                            saturnin =>
-                                {
-                                    saturnin.AddAuthor("Karel Polacek");
-                                });
-                    });
-            Console.WriteLine(doc);
         }
 
         [Test]

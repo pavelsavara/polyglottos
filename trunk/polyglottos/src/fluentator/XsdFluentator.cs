@@ -28,22 +28,22 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using polyglottos.snippets;
 
-namespace polyglottos.test.src
+namespace polyglottos.fluentator
 {
-    public class XSDFluentator : Fluentator, IFluentatorConfig
+    public class XsdFluentator : Fluentator, Fluentator.IFluentatorConfig
     {
-        static readonly XmlNamespaceManager nsManager=new XmlNamespaceManager(new NameTable());
-        static XSDFluentator()
+        static readonly XmlNamespaceManager nsManager = new XmlNamespaceManager(new NameTable());
+        static XsdFluentator()
         {
             nsManager.AddNamespace("xs", "http://www.w3.org/2001/XMLSchema");
         }
 
-        class XSDRoot : IType
+        class XsdRoot : IType
         {
             public readonly XElement root;
             public readonly string typeNamespace;
             public readonly string xmlNamespace;
-            public XSDRoot(XElement root, string typeNamespace)
+            public XsdRoot(XElement root, string typeNamespace)
             {
                 this.root = root;
                 this.typeNamespace = typeNamespace;
@@ -84,7 +84,7 @@ namespace polyglottos.test.src
             {
                 get
                 {
-                    return new ITypeConstructor[]{};
+                    return new ITypeConstructor[] { };
                 }
             }
 
@@ -92,7 +92,7 @@ namespace polyglottos.test.src
             {
                 get
                 {
-                    IEnumerable<XElement> collections = root.XPathSelectElements("xs:element",nsManager).Where(
+                    IEnumerable<XElement> collections = root.XPathSelectElements("xs:element", nsManager).Where(
                         e =>
                         {
                             XAttribute mo = e.Attribute(XName.Get("maxOccurs"));
@@ -104,7 +104,7 @@ namespace polyglottos.test.src
                     {
                         XAttribute name = collection.Attribute(XName.Get("name"));
                         XAttribute type = collection.Attribute(XName.Get("type"));
-                        if(name!=null && type!=null)
+                        if (name != null && type != null)
                         {
                             res.Add(XsdCollection(name.Value, type.Value));
                         }
@@ -113,19 +113,19 @@ namespace polyglottos.test.src
                 }
             }
 
-            public XSDCollection XsdCollection(string name, string type)
+            public XsdCollection XsdCollection(string name, string type)
             {
-                var collection = new XSDCollection(new XSDType(type, this), name);
+                var collection = new XsdCollection(new XsdType(type, this), name);
                 return collection;
             }
         }
 
-        private class XSDType : IType
+        private class XsdType : IType
         {
             private readonly string typeName;
-            public readonly XSDRoot root;
+            public readonly XsdRoot root;
 
-            public XSDType(string typeName, XSDRoot root)
+            public XsdType(string typeName, XsdRoot root)
             {
                 this.typeName = typeName;
                 this.root = root;
@@ -133,14 +133,14 @@ namespace polyglottos.test.src
 
             public bool Equals(IType other)
             {
-                var o = other as XSDType;
+                var o = other as XsdType;
                 if (o != null) return typeName == o.typeName;
                 return false;
             }
 
             public override bool Equals(object obj)
             {
-                var o = obj as XSDType;
+                var o = obj as XsdType;
                 if (o != null) return typeName == o.typeName;
                 return false;
             }
@@ -180,7 +180,7 @@ namespace polyglottos.test.src
                 {
                     IEnumerable<XElement> required = root.root.XPathSelectElements("xs:complexType[@name='" + typeName + "']/xs:attribute[@use='required']", nsManager);
                     var res = new List<ITypeConstructor>();
-                    res.Add(new XSDConstructor(required.ToList(),root));
+                    res.Add(new XsdConstructor(required.ToList(), root));
                     return res;
                 }
             }
@@ -189,19 +189,19 @@ namespace polyglottos.test.src
             {
                 get
                 {
-                    IEnumerable<XElement> collections = root.root.XPathSelectElements("xs:complexType[@name='" + typeName + "']/xs:sequence/xs:element",nsManager).Where(
+                    IEnumerable<XElement> collections = root.root.XPathSelectElements("xs:complexType[@name='" + typeName + "']/xs:sequence/xs:element", nsManager).Where(
                         e =>
-                            {
-                                XAttribute mo = e.Attribute(XName.Get("maxOccurs"));
-                                return mo == null || mo.Value != "1";
-                            });
+                        {
+                            XAttribute mo = e.Attribute(XName.Get("maxOccurs"));
+                            return mo == null || mo.Value != "1";
+                        });
 
                     var res = new List<ITypeCollection>();
                     foreach (var collection in collections)
                     {
                         XAttribute name = collection.Attribute(XName.Get("name"));
                         XAttribute type = collection.Attribute(XName.Get("type"));
-                        if(name!=null && type!=null)
+                        if (name != null && type != null)
                         {
                             res.Add(root.XsdCollection(name.Value, type.Value));
                         }
@@ -211,11 +211,11 @@ namespace polyglottos.test.src
             }
         }
 
-        private class XSDConstructor : ITypeConstructor
+        private class XsdConstructor : ITypeConstructor
         {
             private readonly IList<XElement> required;
-            private readonly XSDRoot root;
-            public XSDConstructor(IList<XElement> required, XSDRoot root)
+            private readonly XsdRoot root;
+            public XsdConstructor(IList<XElement> required, XsdRoot root)
             {
                 this.required = required;
                 this.root = root;
@@ -230,20 +230,20 @@ namespace polyglottos.test.src
                     {
                         XAttribute name = attr.Attribute(XName.Get("name"));
                         XAttribute type = attr.Attribute(XName.Get("type"));
-                        if(name!=null && type!=null)
+                        if (name != null && type != null)
                         {
                             string typeName = type.Value;
                             string typeNamespace = root.typeNamespace;
-                            if(typeName=="xs:string")
+                            if (typeName == "xs:string")
                             {
                                 typeName = "String";
                                 typeNamespace = "System";
                             }
-                            else if(typeName.StartsWith("xs:"))
+                            else if (typeName.StartsWith("xs:"))
                             {
                                 throw new NotImplementedException(typeName);
                             }
-                            res.Add(new XSDParameter(name.Value, typeName, typeNamespace, root));
+                            res.Add(new XsdParameter(name.Value, typeName, typeNamespace, root));
                         }
                     }
 
@@ -252,9 +252,9 @@ namespace polyglottos.test.src
             }
         }
 
-        private class XSDParameter : XSDType,IParameter
+        private class XsdParameter : XsdType, IParameter
         {
-            public XSDParameter(string paramName, string typeName, string typeNamespace, XSDRoot root) 
+            public XsdParameter(string paramName, string typeName, string typeNamespace, XsdRoot root)
                 : base(typeName, root)
             {
                 ParameterName = paramName;
@@ -267,12 +267,12 @@ namespace polyglottos.test.src
         }
 
 
-        private class XSDCollection : ITypeCollection
+        private class XsdCollection : ITypeCollection
         {
-            private readonly XSDType type;
+            private readonly XsdType type;
             private readonly String name;
 
-            public XSDCollection(XSDType type, String name)
+            public XsdCollection(XsdType type, String name)
             {
                 this.type = type;
                 this.name = name;
@@ -295,46 +295,46 @@ namespace polyglottos.test.src
         }
 
 
-        public void GenerateFluentAPI(XDocument xsd, string nameSpace, string projectDirectory)
+        public void GenerateFluentAPI(XDocument Xsd, string nameSpace, string projectDirectory)
         {
             ProjectDirectory = projectDirectory;
-            GenerateFluentAPI(new XSDRoot(xsd.Root, nameSpace));
+            GenerateFluentAPI(new XsdRoot(Xsd.Root, nameSpace));
         }
 
-        protected override IGNamespace ProcessType(csharp.GProjectCSharp project, IType root)
+        protected override IGNamespace ProcessType(IType root)
         {
-            IGNamespace ns = base.ProcessType(project, root);
-            if(!(root is XSDRoot))
+            IGNamespace ns = base.ProcessType(root);
+            if (!(root is XsdRoot))
             {
-                XSDType type = root as XSDType;
+                XsdType type = root as XsdType;
 
                 ns.AddClass(root.TypeName,
                     model =>
+                    {
+                        model.Extends = new GTextType("System.Xml.Linq.XElement");
+                        foreach (ITypeConstructor typeConstructor in root.Constructors)
                         {
-                            model.Extends = new GTextType("System.Xml.Linq.XElement");
-                            foreach (ITypeConstructor typeConstructor in root.Constructors)
-                            {
-                                model.AddConstructor(
-                                    constructor =>
-                                        {
-                                            constructor.AddParameter(GTypeClr.String, "xelementname");
-                                            constructor.CallConstructorBase().AddParameter().TextExpression(
-                                                "System.Xml.Linq.XName.Get(xelementname,\"" + type.root.xmlNamespace + "\")");
+                            model.AddConstructor(
+                                constructor =>
+                                {
+                                    constructor.AddParameter(GTypeClr.String, "xelementname");
+                                    constructor.CallConstructorBase().AddParameter().TextExpression(
+                                        "System.Xml.Linq.XName.Get(xelementname,\"" + type.root.xmlNamespace + "\")");
 
-                                            foreach (IParameter parameter in typeConstructor.Parameters)
-                                            {
-                                                constructor.AddParameter(parameter.TypeFullName, parameter.ParameterName);
-                                                constructor.Call("Add").AddParameter().New("System.Xml.Linq.XAttribute",
-                                                        nw =>
-                                                        {
-                                                            nw.AddParameter().Call("System.Xml.Linq.XName.Get").
-                                                                AddParameterValue(parameter.ParameterName);
-                                                            nw.AddParameterVariable(parameter.ParameterName);
-                                                        });
-                                            }
-                                        });
-                            }
-                        });
+                                    foreach (IParameter parameter in typeConstructor.Parameters)
+                                    {
+                                        constructor.AddParameter(parameter.TypeFullName, parameter.ParameterName);
+                                        constructor.Call("Add").AddParameter().New("System.Xml.Linq.XAttribute",
+                                                nw =>
+                                                {
+                                                    nw.AddParameter().Call("System.Xml.Linq.XName.Get").
+                                                        AddParameterValue(parameter.ParameterName);
+                                                    nw.AddParameterVariable(parameter.ParameterName);
+                                                });
+                                    }
+                                });
+                        }
+                    });
             }
             return ns;
         }

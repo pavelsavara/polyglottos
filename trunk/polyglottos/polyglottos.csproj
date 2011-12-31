@@ -68,6 +68,10 @@
     <Compile Include="src\BodyFactoryRocks.cs" />
     <Compile Include="src\core\GContext.cs" />
     <Compile Include="src\core\GProjectBase.cs" />
+    <Compile Include="src\fluentator\Fluentator.cs" />
+    <Compile Include="src\fluentator\Interfaces.cs" />
+    <Compile Include="src\fluentator\ReflectionFluentator.cs" />
+    <Compile Include="src\fluentator\XsdFluentator.cs" />
     <Compile Include="src\generators\expressions\GCallFieldGenerator.cs" />
     <Compile Include="src\generators\statements\GBlockStatementGenerator.cs" />
     <Compile Include="src\generators\structure\csharp\GAttributeGenerator.cs" />
