@@ -97,7 +97,7 @@ namespace polyglottos.test.src
         protected virtual void AddConstructor(IGClass cls, IType root, ITypeCollection collection, ITypeConstructor constructor)
         {
             IType child = collection.Type;
-            cls.AddMethod(child.TypeFullName, Config.AddPrefix + child.TypeName,
+            cls.AddMethod(child.TypeFullName, Config.AddPrefix + child.TypeName + Config.AddPostfix,
                 method =>
                     {
                         method.IsStatic = true;
@@ -128,11 +128,11 @@ namespace polyglottos.test.src
         protected virtual IGCallParametersContainer InstanceFactory(IGExpressionStartContainer item, IType child, ITypeConstructor constructor)
         {
             return item.New(child.TypeFullName,
-                ni=>
+                callConstructor=>
                     {
                         foreach (var parameter in constructor.Parameters)
                         {
-                            ni.AddParameterVariable(parameter.ParameterName);
+                            callConstructor.AddParameterVariable(parameter.ParameterName);
                         }
                     });
         }
