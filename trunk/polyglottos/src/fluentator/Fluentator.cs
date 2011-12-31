@@ -70,6 +70,8 @@ namespace polyglottos.fluentator
             AddFile(Path.Combine(Config.ProjectDirectory, root.TypeName + ".gen.cs"),
                 file =>
                 {
+                    file.AddComment("file was generated via Polyglottos Fluentator");
+                    file.AddComment("http://code.google.com/p/polyglottos/ by Pavel Savara");
                     res = file.AddNamespace(root.TypeNamespace,
                         ns =>
                         {
@@ -77,6 +79,7 @@ namespace polyglottos.fluentator
                                 cls =>
                                 {
                                     cls.IsStatic = true;
+                                
                                     foreach (ITypeCollection collection in root.Collections)
                                     {
                                         EnqueueWork(collection.Type);

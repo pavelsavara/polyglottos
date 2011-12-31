@@ -1,3 +1,6 @@
+// file was generated via Polyglottos Fluentator
+// http://code.google.com/p/polyglottos/ by Pavel Savara
+
 namespace System.Xml.Linq
 {
     static public class XDocumentExtensions
