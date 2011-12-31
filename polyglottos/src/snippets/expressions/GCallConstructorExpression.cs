@@ -27,6 +27,7 @@ namespace polyglottos.snippets
         #region IGCallConstructorExpression Members
 
         public IGType Type { get; set; }
+        public bool IsArray { get; set; }
 
         #endregion
     }

@@ -30,4 +30,10 @@ namespace polyglottos.snippets
 
         #endregion
     }
+
+
+    public class GDefaultExpression : GBaseContainerExpression, IGDefaultExpression
+    {
+        public IGType Type { get; set; }
+    }
 }

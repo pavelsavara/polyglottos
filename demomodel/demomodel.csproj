@@ -5,33 +5,31 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{10E162FF-2D28-42CB-B991-12B6467C92CD}</ProjectGuid>
+    <ProjectGuid>{9C1A37C4-B920-4706-BEB2-65A1432A923A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>polyglottos.test</RootNamespace>
-    <AssemblyName>polyglottos.test</AssemblyName>
+    <RootNamespace>demomodel</RootNamespace>
+    <AssemblyName>demomodel</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>../tools/keys/polyglottos.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>target\</OutputPath>
-    <IntermediateOutputPath>target\obj\</IntermediateOutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>../tools/keys/polyglottos.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>target\</OutputPath>
-    <IntermediateOutputPath>target\obj\</IntermediateOutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -40,38 +38,18 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>..\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\CSharpCodeDomTest.cs" />
-    <Compile Include="src\Fluentator.cs" />
-    <Compile Include="src\FluentatorTest.cs" />
-    <Compile Include="src\JavaCodeDomTest.cs" />
-    <Compile Include="src\ReflectionFluentator.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DemoModel\demomodel.csproj">
-      <Project>{9C1A37C4-B920-4706-BEB2-65A1432A923A}</Project>
-      <Name>demomodel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\polyglottos\polyglottos.csproj">
-      <Project>{10E162FF-2D28-42CB-B991-95B6467C92CD}</Project>
-      <Name>polyglottos</Name>
-    </ProjectReference>
+    <Compile Include="Company.gen.cs" />
+    <Compile Include="Department.gen.cs" />
+    <Compile Include="Model.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Team.gen.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>if not exist $(SolutionDir)\tools\keys\jni4net.snk "$(FrameworkSDKDir)\bin\sn.exe" -k $(SolutionDir)\tools\keys\polyglottos.snk
-</PreBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

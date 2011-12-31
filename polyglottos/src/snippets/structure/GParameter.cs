@@ -24,13 +24,26 @@ namespace polyglottos.snippets
 {
     public class GParameter : GSnippetBase, IGParameter
     {
-        #region IGParameter Members
+        public GParameter()
+        {
+            Default = new GCallParams();
+        }
 
         public bool IsThis { get; set; }
 
         public IGType Type { get; set; }
 
-        #endregion
+        public IGCallParameters Default { get; private set; }
+
+        public override IGProject Project
+        {
+            get { return base.Project; }
+            set
+            {
+                Default.Project = value;
+                base.Project = value;
+            }
+        }
 
         public override string ToString()
         {

@@ -195,6 +195,7 @@ namespace polyglottos
     {
         IGType Type { get; set; }
         bool IsThis { get; set; }
+        IGCallParameters Default { get; }
     }
 
     public interface IGTextSnippet : IGSnippet

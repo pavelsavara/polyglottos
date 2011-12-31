@@ -34,6 +34,11 @@ namespace polyglottos.generators.csharp
             Generator.GenerateSnippet(parameter.Type, TypeArgs.NameNamespaceArgumentsPrefix);
             CodeWriter.Write(' ');
             CodeWriter.Write(parameter.Name);
+            if(parameter.Default.Snippets.Count>0)
+            {
+                CodeWriter.Write(" = ");
+                Generator.GenerateSnippet(parameter.Default.Snippets[0]);
+            }
         }
     }
 }

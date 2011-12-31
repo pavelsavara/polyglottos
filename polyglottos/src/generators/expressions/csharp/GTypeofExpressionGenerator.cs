@@ -33,4 +33,16 @@ namespace polyglottos.generators.csharp
             GenerateChain(expression);
         }
     }
+
+    public class GDefaultExpressionGenerator : GExpressionGeneratorBase
+    {
+        public override void Generate(IGSnippet snippet)
+        {
+            var expression = (IGDefaultExpression)snippet;
+            CodeWriter.Write("default(");
+            Generator.GenerateSnippet(expression.Type, TypeArgs.NameNamespaceArgumentsPrefix);
+            CodeWriter.Write(")");
+            GenerateChain(expression);
+        }
+    }
 }
