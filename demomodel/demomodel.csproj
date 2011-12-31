@@ -46,6 +46,7 @@
     <Compile Include="Company.gen.cs" />
     <Compile Include="Department.gen.cs" />
     <Compile Include="Model.cs" />
+    <Compile Include="Model.gen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Team.gen.cs" />
   </ItemGroup>
