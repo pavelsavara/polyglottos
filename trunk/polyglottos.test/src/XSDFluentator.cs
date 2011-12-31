@@ -20,10 +20,12 @@ namespace polyglottos.test.src
         {
             public readonly XElement root;
             public readonly string typeNamespace;
+            public readonly string xmlNamespace;
             public XSDRoot(XElement root, string typeNamespace)
             {
                 this.root = root;
                 this.typeNamespace = typeNamespace;
+                xmlNamespace = root.Attribute(XName.Get("targetNamespace")).Value;
             }
 
             public bool Equals(IType other)
@@ -99,7 +101,7 @@ namespace polyglottos.test.src
         private class XSDType : IType
         {
             private readonly string typeName;
-            private readonly XSDRoot root;
+            public readonly XSDRoot root;
 
             public XSDType(string typeName, XSDRoot root)
             {
@@ -282,6 +284,8 @@ namespace polyglottos.test.src
             IGNamespace ns = base.ProcessType(project, root);
             if(!(root is XSDRoot))
             {
+                XSDType type = root as XSDType;
+
                 ns.AddClass(root.TypeName,
                     model =>
                         {
@@ -293,7 +297,7 @@ namespace polyglottos.test.src
                                         {
                                             constructor.AddParameter(GTypeClr.String, "xelementname");
                                             constructor.CallConstructorBase().AddParameter().TextExpression(
-                                                "System.Xml.Linq.XName.Get(xelementname)");
+                                                "System.Xml.Linq.XName.Get(xelementname,\"" + type.root.xmlNamespace + "\")");
 
                                             foreach (IParameter parameter in typeConstructor.Parameters)
                                             {
