@@ -3,7 +3,7 @@
 
 namespace demomodel
 {
-    static public class ModelExtensions
+    static public partial class ModelExtensions
     {
         static public demomodel.Company AddCompany(this demomodel.Model self, System.String name, System.Action<demomodel.Company> result = null)
         {

@@ -3,7 +3,7 @@
 
 namespace demomodel
 {
-    static public class BookExtensions
+    static public partial class BookExtensions
     {
         static public demomodel.Author AddAuthor(this demomodel.Book self, System.String name, System.Action<demomodel.Author> result = null)
         {
@@ -14,7 +14,7 @@ namespace demomodel
         }
     }
     
-    public class Book : global::System.Xml.Linq.XElement
+    public partial class Book : global::System.Xml.Linq.XElement
     {
         public Book(string xelementname, System.String name)
             : base(System.Xml.Linq.XName.Get(xelementname,"http://polyglottos.googlecode.com/svn/trunk/demomodel/library.xsd"))
