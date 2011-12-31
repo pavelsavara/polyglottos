@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // ReSharper disable ConvertToLambdaExpression
 // ReSharper disable PossibleMultipleEnumeration
 
+using System.Collections.Generic;
 using System.Linq;
 using demomodel;
 using NUnit.Framework;
@@ -43,38 +44,95 @@ namespace polyglottos.test
         }
 
         [Test]
-        public void TestCompanyBuilder()
+        public void OldCompanyBuilder()
         {
-            var model = new Model();
-            model.AddCompany("Boldbrick & co.",
-                bb =>
-                    {
-                        bb.AddDepartment("Software & Visions", "swv",
-                            swv =>
-                                {
-                                    swv.AddTeam("Visions",
-                                        visions =>
-                                            {
-                                                visions.IsAwesome = true;
-                                                visions.AddEmployee("Pavel");
-                                                visions.AddEmployee("Ondra");
-                                            });
-                                    swv.AddTeam("Developers",
-                                        devs =>
-                                            {
-                                                devs.AddEmployee("Vasek");
-                                                devs.AddEmployee("Pasek");
-                                            });
-                                });
+            var devNames = new List<string> {"Vasek", "Pasek"};
 
-                        bb.AddDepartment("Office Management",
-                            office => office.AddTeam("All hands",
-                                jl =>
-                                    {
-                                        jl.AddEmployee("Jana");
-                                        jl.AddEmployee("Lucka");
-                                    }));
+            var model = new Model();
+            var pavel = new Employee("Pavel");
+            model.Companies.Add(new Company("Boldbrick & co.")
+            {
+                Departments = new List<Department>
+                {
+                    new Department("Software & Visions", "swv")
+                    {
+                        Teams = new List<Team>
+                        {
+                            new Team("Visions")
+                            {
+                                Employees = new List<Employee>
+                                {
+                                    // I was forced to move 
+                                    // pavel variable declaration completely out of scope
+                                    pavel,
+                                    new Employee("Ondra"),
+                                },
+                                IsAwesome = true,
+                            },
+                            new Team("Developers")
+                            {
+                                Employees = new List<Employee>
+                                (
+                                    // I can't do any statements or declarations here
+                                    // to prepare my data in-place
+                                    devNames.Select(n=>new Employee(n))
+                                )
+                                {
+                                    // note I can't add pavel first
+                                    pavel,
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+
+
+        [Test]
+        public void NewCompanyBuilder()
+        {
+            var devNames = new List<string> {"Vasek", "Pasek"};
+
+            var model = new Model();
+            model.AddCompany("Boldbrick & co.", bb =>
+            {
+                bb.AddDepartment("Software & Visions", "swv", swv =>
+                {
+                    var pavel = new Employee("pavel");
+                    swv.AddTeam("Visions", visions =>
+                    {
+                        visions.IsAwesome = true;
+                        visions.AddEmployee(pavel);
+                        visions.AddEmployee("Ondra");
                     });
+                    swv.AddTeam("Developers", devs => 
+                    {
+                        devs.AddEmployee(pavel);
+                        // I can add more employees after Pavel
+                        devs.AddEmployees(devNames.Select(n => new Employee(n)), dev=>
+                        {
+                            dev.Age = 33;
+                        });
+                        // and also can use any complex statement in-place
+                        for (int i = 0; i < devNames.Count; i++)
+                        {
+                            int ix=i;
+                            devs.AddEmployee(devNames[i], dev =>
+                            {
+                                dev.Age = ix;
+                            });
+                        }
+                    });
+                });
+                bb.AddDepartment("Office Management", 
+                    ot => ot.AddTeam("All hands", jl => 
+                    {
+                        jl.AddEmployee("Jana");
+                        jl.AddEmployee("Lucka");
+                    }));
+            });
 
             var allTeams = model.Companies.SelectMany(c => c.Departments).SelectMany(d => d.Teams);
             Team visionsTeam = allTeams.Single(t => t.Name == "Visions");
