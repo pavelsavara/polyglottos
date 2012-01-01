@@ -1,4 +1,4 @@
-﻿#region Copyright (C) 2011 by Pavel Savara
+#region Copyright (C) 2011 by Pavel Savara
 
 /*
 This file is part of polyglottos library - code generator tool
@@ -21,24 +21,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endregion
 
 using System.IO;
-using polyglottos.utils;
+using System.Linq;
 
-namespace polyglottos.generators
+namespace polyglottos.utils
 {
-    public class GFileGenerator : GContainerGeneratorBase, IGWriterGenerator
+    public class GDiffOnlyFileStream : MemoryStream
     {
-        #region IGWriterGenerator Members
-
-        public virtual IGCodeWriter CreateWriter(IGFile snippet)
+        private readonly string targetFileName;
+        public GDiffOnlyFileStream(string targetFileName)
         {
-            string dir = Path.GetDirectoryName(snippet.Name);
-            if (!Directory.Exists(dir))
-            {
-                Directory.CreateDirectory(dir);
-            }
-            return new GCodeWriter(new StreamWriter(new GDiffOnlyFileStream(snippet.Name)));
+            this.targetFileName = targetFileName;
         }
 
-        #endregion
+        public override void Close()
+        {
+            base.Close();
+            var originalBytes = File.ReadAllBytes(targetFileName);
+            var newBytes = ToArray();
+            if(Equals(originalBytes, newBytes))
+            {
+                File.WriteAllBytes(targetFileName, newBytes);
+            }
+        }
+
+        public static bool Equals(byte[] originalBytes, byte[] newBytes)
+        {
+            return (originalBytes.Length != newBytes.Length || originalBytes.Where((t, i) => t != newBytes[i]).Any());
+        }
     }
 }

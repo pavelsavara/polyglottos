@@ -46,20 +46,17 @@ namespace polyglottos.test
         public void TestLibraryBuilder()
         {
             var doc=new XDocument();
-            doc.AddLibrary("Prague",
-                prague =>
-                    {
-                        prague.AddBook("Saturnin",
-                            saturnin =>
-                                {
-                                    saturnin.AddAuthor("Zdenek Jirotka");
-                                });
-                        prague.AddBook("Bylo Nas 5",
-                            saturnin =>
-                                {
-                                    saturnin.AddAuthor("Karel Polacek");
-                                });
-                    });
+            doc.AddLibrary("Prague",prague =>
+            {
+                prague.AddBook("Saturnin",saturnin =>
+                {
+                    saturnin.AddAuthor("Zdenek Jirotka");
+                });
+                prague.AddBook("Bylo Nas 5", saturnin =>
+                {
+                    saturnin.AddAuthor("Karel Polacek");
+                });
+            });
             Console.WriteLine(doc);
         }
     }
