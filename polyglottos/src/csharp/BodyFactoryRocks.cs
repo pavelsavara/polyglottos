@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endregion
 
 using System;
+using polyglottos.snippets;
 
 namespace polyglottos.csharp
 {
@@ -33,6 +34,7 @@ namespace polyglottos.csharp
         {
             return self.ThrowNew(GTypeClr.NotImplementedException);
         }
+
 
         public static IGUsingStatement Using(this IGStatementContainer self, string name,
                                              Action<IGExpressionStartContainer> disposable = null,

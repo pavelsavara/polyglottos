@@ -95,11 +95,8 @@ namespace polyglottos.test
                                                                         sosParams.AddParameterValue("...--..."))
                                                                         .Indexer(indexer => indexer.AddParameterValue(1));
                                                                     test.AddParameterVariable("localVar1");
-                                                                    test.AddParameterVariable("localVar2",
-                                                                        localVar2 =>
-                                                                        localVar2.Indexer(
-                                                                            indexer =>
-                                                                            indexer.AddParameterVariable("sd")));
+                                                                    test.AddParameterVariable("localVar2")
+                                                                        .Indexer().AddParameterVariable("sd");
                                                                 })
                                                             .Call("baz").AddParameter().Cast(GTypeClr.Object).
                                                             AddParameter().TypeOf("string");
@@ -126,7 +123,20 @@ namespace polyglottos.test
                 }
             }
 
-            file.GetClass("MyClass").GetMethod("Init").AddComment("Found it");
+            file.GetClass("MyClass").GetMethod("Init").With(init =>
+            {
+                init.AddComment("Found it");
+                init.TryCatchFinally(wtry =>
+                                         {
+                                             wtry.AddComment("t");
+                                         })
+                    .Catch(GTypeClr.SystemException, "ex",
+                        ctxh =>
+                            {
+                                ctxh.AddComment("c");
+                            });
+            });
+            
 
             project.GenerateSnippet(file, Console.Out);
         }

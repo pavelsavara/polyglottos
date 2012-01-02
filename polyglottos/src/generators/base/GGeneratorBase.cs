@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endregion
 
 using System;
+using polyglottos.snippets;
 
 namespace polyglottos.generators
 {
@@ -70,7 +71,8 @@ namespace polyglottos.generators
                 {
                     CodeWriter.Write(", ");
                 }
-                Generator.GenerateSnippet(expression.Parameters.Snippets[i]);
+                var snippet = expression.Parameters.Snippets[i];
+                Generator.GenerateSnippet(snippet);
             }
         }
     }

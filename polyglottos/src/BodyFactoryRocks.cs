@@ -39,6 +39,31 @@ namespace polyglottos
             return snippet;
         }
 
+        public static IGExpression TextExpression(this IGExpressionContainer self, string variableName,
+                                                  Action<IGExpression> with = null)
+        {
+            var snippet= self.Project.CreateSnippet<IGTextExpression>();;
+            snippet.Name = variableName;
+            AddExpressionToContainer(self, snippet);
+            if (with != null) with(snippet);
+            return snippet;
+        }
+
+        private static void AddExpressionToContainer(IGExpressionContainer self, IGExpression snippet)
+        {
+            if (self is IGStatementContainer)
+            {
+                var statement = self.Project.CreateSnippet<GTextStatement>();
+                self._AddSnippet(statement);
+                statement._AddSnippet(snippet);
+            }
+            else
+            {
+                self._AddSnippet(snippet);
+            }
+        }
+
+
         public static IGStatement ThrowNew(this IGStatementContainer self, IGType exception)
         {
             var thr = self.Project.CreateSnippet<IGThrowStatement>();
@@ -103,26 +128,63 @@ namespace polyglottos
             return snippet;
         }
 
+        public static IGTryCatchFinallyStatement TryCatchFinally(this IGStatementContainer self,
+                                             Action<IGTryCatchFinallyStatement> wtry = null,
+                                             Action<IGStatementContainer> wfinally = null)
+        {
+            var snippet = self.Project.CreateSnippet<IGTryCatchFinallyStatement>();
+            self._AddSnippet(snippet);
+            if (wtry != null) wtry(snippet);
+            if (wfinally != null) wfinally(snippet.Finally);
+            return snippet;
+        }
+
+        public static IGTryCatchFinallyStatement TryCatchFinally(this IGStatementContainer self,
+                                             IGType catchType, string catchName,
+                                             Action<IGTryCatchFinallyStatement> wtry = null,
+                                             Action<IGCatchStatement> wcatch = null,
+                                             Action<IGStatementContainer> wfinally = null)
+        {
+            var snippet = self.Project.CreateSnippet<IGTryCatchFinallyStatement>();
+            var ctch = self.Project.CreateSnippet<IGCatchStatement>();
+            ctch.Type = catchType;
+            ctch.Name = catchName;
+            self._AddSnippet(snippet);
+            snippet.Catches.Add(ctch);
+            if (wtry != null) wtry(snippet);
+            if (wcatch != null) wcatch(ctch);
+            if (wfinally != null) wfinally(snippet.Finally);
+            return snippet;
+        }
+
+        public static IGTryCatchFinallyStatement Catch(this IGTryCatchFinallyStatement self,
+                                             IGType catchType, string catchName,
+                                             Action<IGCatchStatement> wcatch = null)
+        {
+            var ctch = self.Project.CreateSnippet<IGCatchStatement>();
+            ctch.Type = catchType;
+            ctch.Name = catchName;
+            self.Catches.Add(ctch);
+            if (wcatch != null) wcatch(ctch);
+            return self;
+        }
+
+        public static IGTryCatchFinallyStatement Finally(this IGTryCatchFinallyStatement self,
+                                             Action<IGStatementContainer> wfinally)
+        {
+            if (wfinally != null) wfinally(self.Finally);
+            return self;
+        }
+
         #endregion
 
         #region expressions
 
-        public static IGExpression Value(this IGExpressionStartContainer self, object value,
-                                         Action<IGExpression> with = null)
+        public static IGExpression Value(this IGExpressionStartContainer self, object value, Action<IGExpression> with = null)
         {
             var snippet = self.Project.CreateSnippet<IGLiteralExpression>();
             snippet.Value = value;
-            self._AddSnippet(snippet);
-            if (with != null) with(snippet);
-            return snippet;
-        }
-
-        public static IGExpression TextExpression(this IGExpressionContainer self, string variableName,
-                                                  Action<IGExpression> with = null)
-        {
-            var snippet = self.Project.CreateSnippet<IGTextExpression>();
-            snippet.Name = variableName;
-            self._AddSnippet(snippet);
+            AddExpressionToContainer(self, snippet);
             if (with != null) with(snippet);
             return snippet;
         }
@@ -132,7 +194,7 @@ namespace polyglottos
         {
             var snippet = self.Project.CreateSnippet<IGStaticClassExpression>();
             snippet.Type = type;
-            self._AddSnippet(snippet);
+            AddExpressionToContainer(self, snippet);
             if (with != null) with(snippet);
             return snippet;
         }
@@ -152,7 +214,7 @@ namespace polyglottos
         {
             var snippet = self.Project.CreateSnippet<IGCallConstructorExpression>();
             snippet.Type = type;
-            self._AddSnippet(snippet);
+            AddExpressionToContainer(self, snippet);
             if (result != null) result(snippet);
             return snippet;
         }
@@ -173,7 +235,7 @@ namespace polyglottos
         {
             var snippet = self.Project.CreateSnippet<IGCastExpression>();
             snippet.Type = type;
-            self._AddSnippet(snippet);
+            AddExpressionToContainer(self, snippet);
             if (result != null) result(snippet);
             return snippet;
         }
@@ -184,7 +246,7 @@ namespace polyglottos
         {
             var snippet = self.Project.CreateSnippet<IGTypeofExpression>();
             snippet.Type = type;
-            self._AddSnippet(snippet);
+            AddExpressionToContainer(self, snippet);
             if (result != null) result(snippet);
             return snippet;
         }
@@ -204,7 +266,7 @@ namespace polyglottos
         {
             var snippet = self.Project.CreateSnippet<IGDefaultExpression>();
             snippet.Type = type;
-            self._AddSnippet(snippet);
+            AddExpressionToContainer(self, snippet);
             if (result != null) result(snippet);
             return snippet;
         }
@@ -224,7 +286,7 @@ namespace polyglottos
         {
             var snippet = self.Project.CreateSnippet<IGCallMethodExpression>();
             snippet.Name = methodName;
-            self._AddSnippet(snippet);
+            AddExpressionToContainer(self, snippet);
             if (result != null) result(snippet);
             return snippet;
         }
@@ -234,7 +296,7 @@ namespace polyglottos
         {
             var snippet = self.Project.CreateSnippet<IGCallFieldExpression>();
             snippet.Name = fieldName;
-            self._AddSnippet(snippet);
+            AddExpressionToContainer(self, snippet);
             if (result != null) result(snippet);
             return snippet;
         }
@@ -275,30 +337,40 @@ namespace polyglottos
             return snippet;
         }
 
-        public static IGCallParameters AddParameter(this IGCallParametersContainer self)
+        public static IGCallParameter AddParameter(this IGCallParametersContainer self, Action<IGCallParameter> with = null)
         {
-            return self.Parameters;
+            var snippet = self.Project.CreateSnippet<IGCallParameter>();
+            snippet.Project = self.Project;
+            self.Parameters._AddSnippet(snippet);
+            if (with != null) with(snippet);
+            return snippet;
         }
 
         //sugar
         public static IGExpression AddParameterValue(this IGCallParametersContainer self, object value,
-                                                     Action<IGExpression> with = null)
+                                                     Action<IGCallParameter> with = null)
         {
-            return self.Parameters.Value(value, with);
+            var parameter = self.AddParameter();
+            if (with != null) with(parameter);
+            return parameter.Value(value);
         }
 
         //sugar
         public static IGExpression AddParameterNull(this IGCallParametersContainer self,
-                                                    Action<IGExpression> with = null)
+                                                    Action<IGCallParameter> with = null)
         {
-            return self.Parameters.Value(null, with);
+            var parameter = self.AddParameter();
+            if (with != null) with(parameter);
+            return parameter.Value(null);
         }
 
         //obsolete sugar
         public static IGExpression AddParameterVariable(this IGCallParametersContainer self, string variable,
-                                                        Action<IGExpression> with = null)
+                                                        Action<IGCallParameter> with = null)
         {
-            return self.Parameters.TextExpression(variable, with);
+            var parameter = self.AddParameter();
+            if (with != null) with(parameter);
+            return parameter.TextExpression(variable);
         }
 
         #endregion

@@ -39,6 +39,18 @@ namespace polyglottos
         IGExpressionStartContainer Disposable { get; set; }
     }
 
+    public interface IGCatchStatement : IGStatementContainer
+    {
+        IGType Type { get; set; }
+    }
+
+    public interface IGTryCatchFinallyStatement : IGStatementContainer
+    {
+        IList<IGCatchStatement> Catches { get; set; }
+        IGStatementContainer Finally { get; set; }
+    }
+
+    
     public interface IGBlockStatement : IGStatement, IGStatementContainer
     {
     }
@@ -140,7 +152,13 @@ namespace polyglottos
 
     #region Call parameters
 
-    public interface IGCallParameters : IGExpressionStartContainer
+    public interface IGCallParameter : IGExpressionStartContainer
+    {
+        bool IsOut { get; set; }
+        bool IsRef { get; set; }
+    }
+
+    public interface IGCallParameters : IGSnippetContainer
     {
     }
 

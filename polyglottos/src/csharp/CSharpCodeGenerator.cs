@@ -60,6 +60,7 @@ namespace polyglottos.csharp
 
             //statements
             RegisterStrategy<GUsingStatement, GUsingStatementGenerator>();
+            RegisterStrategy<GTryCatchFinallyStatement, GTryCatchFinallyStatementGenerator>();
 
             //expressions
             RegisterStrategy<GLiteralExpression, GLiteralExpressionGenerator>();
