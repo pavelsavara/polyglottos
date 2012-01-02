@@ -22,12 +22,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace polyglottos.generators
 {
-    public class GTextStatementGenerator : GGeneratorBase
+    public class GTextStatementGenerator : GExpressionGeneratorBase
     {
         public override void Generate(IGSnippet snippet)
         {
             var textStatement = (IGTextStatement) snippet;
             CodeWriter.Write(textStatement.Name);
+            GenerateChain(textStatement);
             CodeWriter.WriteLine(";");
         }
     }

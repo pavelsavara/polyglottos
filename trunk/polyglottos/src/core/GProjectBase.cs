@@ -167,6 +167,9 @@ namespace polyglottos
 
             //types
             RegisterSnippet<IGTextType, GTextType>();
+
+            //call params
+            RegisterSnippet<IGCallParameter, GCallParameter>();
         }
 
         /// <summary>

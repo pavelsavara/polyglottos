@@ -40,5 +40,6 @@ namespace polyglottos
         public static readonly IGType IntPtr = new GTextType("System.IntPtr");
         public static readonly IGType IntPtrArray = new GTextType("System.IntPtr[]");
         public static readonly IGType NotImplementedException = new GTextType("System.NotImplementedException");
+        public static readonly IGType SystemException = new GTextType("System.Exception");
     }
 }

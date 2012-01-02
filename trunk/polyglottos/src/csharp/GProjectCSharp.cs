@@ -50,6 +50,8 @@ namespace polyglottos.csharp
 
             //statements
             RegisterSnippet<IGUsingStatement, GUsingStatement>();
+            RegisterSnippet<IGTryCatchFinallyStatement, GTryCatchFinallyStatement>();
+            RegisterSnippet<IGCatchStatement, GCatchStatement>();
         }
     }
 }

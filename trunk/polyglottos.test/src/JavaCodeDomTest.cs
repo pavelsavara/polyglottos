@@ -55,9 +55,8 @@ namespace polyglottos.test
                                                                     sosParams => sosParams.AddParameterValue("...--..."))
                                                                     .Indexer(index => index.AddParameterValue(1));
                                                                 test.AddParameterVariable("localVar1");
-                                                                test.AddParameterVariable("localVar2",
-                                                                    localVar2 =>
-                                                                    localVar2.Indexer(p3 => _BodyFactoryRocks.AddParameterVariable(p3, "sd")));
+                                                                test.AddParameterVariable("localVar2")
+                                                                    .Indexer(p3 => _BodyFactoryRocks.AddParameterVariable(p3, "sd"));
                                                             })
                                                         .Call("baz").AddParameter().TypeOf(GTypeJvm.Integer);
                                                     method.AddTextStatement("return null");

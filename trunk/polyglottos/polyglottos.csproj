@@ -73,12 +73,16 @@
     <Compile Include="src\fluentator\ReflectionFluentator.cs" />
     <Compile Include="src\fluentator\XsdFluentator.cs" />
     <Compile Include="src\generators\expressions\GCallFieldGenerator.cs" />
+    <Compile Include="src\generators\expressions\GCallParameterGenerator.cs" />
+    <Compile Include="src\generators\statements\csharp\GTryCatchFinallyStatementGenerator.cs" />
     <Compile Include="src\generators\statements\GBlockStatementGenerator.cs" />
     <Compile Include="src\generators\structure\csharp\GAttributeGenerator.cs" />
     <Compile Include="src\generators\structure\csharp\GConstructorGenerator.cs" />
     <Compile Include="src\generators\structure\csharp\GEventGenerator.cs" />
     <Compile Include="src\generators\structure\csharp\GMemberGeneratorBase.cs" />
     <Compile Include="src\generators\structure\csharp\GParameterGenerator.cs" />
+    <Compile Include="src\snippets\expressions\GCallParameter.cs" />
+    <Compile Include="src\snippets\statements\GTryCatchFinallyStatement.cs" />
     <Compile Include="src\utils\GDiffOnlyFileStream.cs" />
     <Compile Include="src\generators\structure\java\GAttributeGenerator.cs" />
     <Compile Include="src\generators\structure\java\GMemberGeneratorBase.cs" />

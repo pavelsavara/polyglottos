@@ -141,6 +141,9 @@ namespace polyglottos.generators
 
             //types
             RegisterStrategy<GTextType, GTextTypeGenerator>();
+
+            //call params
+            RegisterStrategy<GCallParameter, GCallParameterGenerator>();
         }
 
         protected void RegisterStrategy<TSnippet, TStrategy>()
