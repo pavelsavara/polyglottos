@@ -80,8 +80,15 @@ namespace polyglottos
             return snippet;
         }
 
-        public static IGStatement Assign(this IGStatementContainer self, string variable,
-                                         Action<IGStatement> with = null)
+        public static IGAssignStatement Assign(this IGExpression self, Action<IGAssignStatement> with = null)
+        {
+            var snippet = self.Project.CreateSnippet<IGAssignStatement>();
+            self._AddSnippet(snippet);
+            if (with != null) with(snippet);
+            return snippet;
+        }
+
+        public static IGAssignStatement Assign(this IGStatementContainer self, string variable, Action<IGAssignStatement> with = null)
         {
             var snippet = self.Project.CreateSnippet<IGAssignStatement>();
             snippet.Name = variable;

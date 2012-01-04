@@ -29,7 +29,7 @@ namespace polyglottos.generators
             if (mc.Snippets.Count > 0)
             {
                 IGSnippet ch = mc.Snippets[0];
-                if (!(ch is IGCallIndexerExpression) && !(mc is IGNoDotChain))
+                if (!(ch is IGCallIndexerExpression) && !(ch is IGAssignStatement) && !(mc is IGNoDotChain))
                 {
                     CodeWriter.Write(".");
                 }

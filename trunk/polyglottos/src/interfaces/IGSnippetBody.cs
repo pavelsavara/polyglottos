@@ -66,6 +66,7 @@ namespace polyglottos
 
     public interface IGAssignStatement : IGStatement
     {
+        string PrefixOperator { get; set; }
     }
 
     public interface IGReturnStatement : IGStatement
