@@ -24,5 +24,8 @@ namespace polyglottos.snippets
 {
     public class GAssignStatement : GBaseContainerExpression, IGNoDotChain, IGAssignStatement
     {
+        public IGType Static { get; set; }
+
+        public string PrefixOperator { get; set; }
     }
 }

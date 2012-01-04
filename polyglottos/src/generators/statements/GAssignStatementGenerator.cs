@@ -28,8 +28,16 @@ namespace polyglottos.generators
         {
             var statement = (IGAssignStatement) snippet;
 
-            CodeWriter.Write(statement.Name);
-            CodeWriter.Write(" = ");
+            if (statement.Name!=null)
+            {
+                CodeWriter.Write(statement.Name);
+            }
+            CodeWriter.Write(" ");
+            if (statement.PrefixOperator != null)
+            {
+                CodeWriter.Write(statement.PrefixOperator);
+            }
+            CodeWriter.Write("= ");
             GenerateChain(statement);
             CodeWriter.WriteLine(";");
         }
