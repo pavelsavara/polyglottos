@@ -36,17 +36,24 @@ namespace polyglottos.utils
         public override void Close()
         {
             base.Close();
-            var originalBytes = File.ReadAllBytes(targetFileName);
-            var newBytes = ToArray();
-            if(Equals(originalBytes, newBytes))
+            if(File.Exists(targetFileName))
             {
-                File.WriteAllBytes(targetFileName, newBytes);
+                var originalBytes = File.ReadAllBytes(targetFileName);
+                var newBytes = ToArray();
+                if (!Equals(originalBytes, newBytes))
+                {
+                    File.WriteAllBytes(targetFileName, newBytes);
+                }
+            }
+            else
+            {
+                File.WriteAllBytes(targetFileName, ToArray());
             }
         }
 
         public static bool Equals(byte[] originalBytes, byte[] newBytes)
         {
-            return (originalBytes.Length != newBytes.Length || originalBytes.Where((t, i) => t != newBytes[i]).Any());
+            return (originalBytes.Length == newBytes.Length && !originalBytes.Where((t, i) => t != newBytes[i]).Any());
         }
     }
 }
