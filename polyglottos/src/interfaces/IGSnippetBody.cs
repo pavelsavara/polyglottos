@@ -97,6 +97,10 @@ namespace polyglottos
     {
     }
 
+    public interface IGOperatorExpression : IGExpression, IGExpressionStartContainer
+    {
+    }
+
     public interface IGCallMethod : IGCallParametersContainer
     {
     }

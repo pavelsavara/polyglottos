@@ -196,6 +196,16 @@ namespace polyglottos
             return snippet;
         }
 
+        public static IGOperatorExpression Operator(this IGExpressionContainer self, string op, Action<IGOperatorExpression> with = null)
+        {
+            var snippet = self.Project.CreateSnippet<IGOperatorExpression>();
+            snippet.Name = op;
+            AddExpressionToContainer(self, snippet);
+            if (with != null) with(snippet);
+            return snippet;
+        }
+
+
         public static IGExpression Static(this IGExpressionStartContainer self, IGType type,
                                           Action<IGExpression> with = null)
         {

@@ -30,7 +30,7 @@ namespace polyglottos
         public static readonly IGType Int = new GTextType("int", true);
         public static readonly IGType Long = new GTextType("long", true);
         public static readonly IGType Byte = new GTextType("byte", true);
-        public static readonly IGType Bool = new GTextType("bool", true);
+        public static readonly IGType Bool = new GTextType("boolean", true);
         public static readonly IGType Char = new GTextType("char", true);
         public static readonly IGType Double = new GTextType("double", true);
         public static readonly IGType Float = new GTextType("float", true);

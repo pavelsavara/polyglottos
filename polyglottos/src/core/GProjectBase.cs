@@ -159,6 +159,7 @@ namespace polyglottos
             RegisterSnippet<IGCallIndexerExpression, GCallIndexerExpression>();
             RegisterSnippet<IGStaticClassExpression, GStaticClassExpression>();
             RegisterSnippet<IGLiteralExpression, GLiteralExpression>();
+            RegisterSnippet<IGOperatorExpression, GOperatorExpression>();
             RegisterSnippet<IGTypeofExpression, GTypeofExpression>();
             RegisterSnippet<IGDefaultExpression, GDefaultExpression>();
             RegisterSnippet<IGCastExpression, GCastExpression>();

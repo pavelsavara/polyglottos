@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using polyglottos.generators.csharp;
 
-namespace polyglottos.generators
+namespace polyglottos.generators.csharp
 {
     public class GFieldGenerator : GExpressionGeneratorBase
     {

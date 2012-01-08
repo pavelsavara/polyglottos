@@ -1,4 +1,4 @@
-#region Copyright (C) 2011 by Pavel Savara
+﻿#region Copyright (C) 2011 by Pavel Savara
 
 /*
 This file is part of polyglottos library - code generator tool
@@ -20,25 +20,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endregion
 
-namespace polyglottos.generators
+using polyglottos.generators.java;
+
+namespace polyglottos.generators.java
 {
-    public abstract class GExpressionGeneratorBase : GGeneratorBase
+    public class GFieldGenerator : GExpressionGeneratorBase
     {
-        protected void GenerateChain(IGExpressionContainer mc)
+        public override void Generate(IGSnippet snippet)
         {
-            if (mc.Snippets.Count > 0)
+            var field = (IGField) snippet;
+            VerticalSpacingBegin(field, true);
+
+            GMemberGeneratorBase.GenerateModifiers(field, CodeWriter);
+            Generator.GenerateSnippet(field.ReturnType, TypeArgs.NameNamespaceArgumentsPrefix);
+            CodeWriter.Write(" ");
+            CodeWriter.Write(field.Name);
+            if (field.Snippets.Count > 0)
             {
-                IGSnippet ch = mc.Snippets[0];
-                if (!(ch is IGCallIndexerExpression) && 
-                    !(ch is IGAssignStatement) && 
-                    !(ch is IGOperatorExpression) &&
-                    !(mc is IGOperatorExpression) &&
-                    !(mc is IGNoDotChain))
-                {
-                    CodeWriter.Write(".");
-                }
-                Generator.GenerateSnippet(ch);
+                CodeWriter.Write(" = ");
+                GenerateChain(field);
             }
+            CodeWriter.WriteLine(";");
         }
     }
 }
