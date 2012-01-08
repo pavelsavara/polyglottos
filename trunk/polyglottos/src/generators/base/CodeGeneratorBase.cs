@@ -115,9 +115,6 @@ namespace polyglottos.generators
             RegisterStrategy<GFile, GFileGenerator>();
             RegisterStrategy<GTextSnippet, GTextSnippetGenerator>();
 
-            //members
-            RegisterStrategy<GField, GFieldGenerator>();
-
             //member decoration
             RegisterStrategy<GComment, GCommentGenerator>();
             RegisterStrategy<GXmlDocSnippet, GXmlDocSnippetGenerator>();
@@ -138,6 +135,7 @@ namespace polyglottos.generators
             RegisterStrategy<GCallIndexerExpression, GCallIndexerExpressionGenerator>();
             RegisterStrategy<GStaticClassExpression, GStaticClassExpressionGenerator>();
             RegisterStrategy<GCastExpression, GCastExpressionGenerator>();
+            RegisterStrategy<GOperatorExpression, GOperatorExpressionGenerator>();
 
             //types
             RegisterStrategy<GTextType, GTextTypeGenerator>();
