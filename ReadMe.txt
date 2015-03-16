@@ -1,3 +1,2 @@
-Visit and read http://code.google.com/p/polyglottos/
-Make sure you understand GPL license.
+Licensed under GPL v3.0
 Talk back to pavel.savara@gmail.com
